@@ -1,4 +1,5 @@
 // this should be the entry point to your library
+'use strict'
 module.exports = {
    Table: require('./table').default,
    Item: require('./item').default,

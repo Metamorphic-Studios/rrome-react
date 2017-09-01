@@ -24,7 +24,7 @@ class Menu extends Component {
       return this.state.menu.map((x) => {
          return(
             <li onClick={this.state.onPress.bind(this, x.id)} style = {this.state.itemStyle}>
-               {this.props.renderItem(x, name)}
+               {x.name}
             </li>
          )
       });
