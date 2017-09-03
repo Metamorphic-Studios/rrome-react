@@ -16,7 +16,6 @@ class Table extends Component {
       this.state = {
          ...props,
          data: [],
-         view: 'viewer'
       }
    }
 
@@ -50,29 +49,9 @@ class Table extends Component {
       }
    }
 
-   mapKeys(item){
-      return this.state.struct["display_keys"].map((x) => {
-         return item[x];
-      });
-   }
-
-   _renderItem(){
-      return this.state.data.map((x) => {
-        return(
-            <li>
-            {this.mapKeys(x)}
-            </li>
-         ) 
-      })
-   }
 
    _render(){
-      if(this.state.view == 'editor'){
-         return this._renderEditor();
-      }
-      else{
-         return this._renderViewer();
-      }
+         return this._renderViewer(); 
    }
 
    _renderViewer(){
@@ -80,30 +59,26 @@ class Table extends Component {
         <ReactTable
          style={{flex: 1, display: 'flex'}}
          data={this.state.data}
-         columns={
-            this.state.struct["display_keys"].map((x) =>
-                  ({
-               accessor: x,
-               Header: x
-            })
-            )
-         } />
+         columns={(this.state.struct && this.state.struct["display_keys"]) ? this.state.struct["display_keys"].map((x) => ({ accessor: x.id, Header: x.label})) : []}
+         getTdProps={(state, rowInfo, column, instance) => {
+            return {
+               onClick: (e, handleOriginal) => {
+                  if(this.props.onItemSelect){
+                     this.props.onItemSelect(rowInfo.original);
+                  }
+                  if(handleOriginal){
+                     handleOriginal();
+                  }
+               }
+            }
+         }}
+          />
         );
-   }
-
-   _renderEditor(){
-      return(
-         <Form struct = {this.state.struct} />      
-      );
    }
 
    render(){
       return (
         <div style = {{display: 'flex', flex: 1, flexDirection: 'column'}}>
-         <div style = {{display: 'flex', flex: 0.25, flexDirection: 'columm', alignItems: 'flex-start'}}>
-            <h2>{this.state.struct.name}</h2>
-            <Button bsStyle = "info" onClick={() => this.setState({view: 'editor'}) }>Add new {this.state.struct.name}</Button>
-            </div>
             {this._render()}
             </div>
          );
