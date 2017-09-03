@@ -3,6 +3,7 @@ import React, {
 } from 'react';
 
 import 'react-table/react-table.css'
+import '../style.css'
 
 class Menu extends Component {
    constructor(props){
@@ -23,8 +24,10 @@ class Menu extends Component {
    _renderList(){
       return this.state.menu.map((x) => {
          return(
-            <li onClick={this.state.onPress.bind(this, x.id)} style = {this.state.itemStyle}>
+            <li className="menu-item" onClick={this.state.onPress.bind(this, x.id)} style = {this.state.itemStyle}>
+               <div className="menu-inner-item">
                {x.name}
+               </div>
             </li>
          )
       });
@@ -32,8 +35,8 @@ class Menu extends Component {
 
    render(){
       return (
-         <div style = {this.state.style}>      
-            <ul style = {this.state.containerStyle}>
+         <div style = {this.state.style} className="menu-container">      
+            <ul style = {this.state.containerStyle} className="menu-list">
                {this._renderList()}
             </ul>
          </div>
