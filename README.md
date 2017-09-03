@@ -9,6 +9,16 @@ React bindings for rrome
 - Editor
 - Table
 
+### Installation
+---
+
+```javascript
+cd rrome_react; npm link
+
+cd working_dir; npm link rrome-react;
+
+```
+
 ### Usage
 ---
 
