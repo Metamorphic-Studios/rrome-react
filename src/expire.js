@@ -38,7 +38,7 @@ class ExpiringDate extends Component{
 
    render(){
       return(
-            {this._render()}       
+            this._render()       
          );
    }
 }

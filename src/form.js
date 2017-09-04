@@ -39,18 +39,15 @@ class Form extends Component {
     }
 
    _renderItems(){
-      var items = [];
-      for(var k in this.state.struct.model){
-         var item = this.state.struct.model[k];
-         if(item.type == 'LIST'){
-            items.push(<List value = {[['yo', 'foobar'],['na', 'geaf']]} struct = {item['meta-type']}/>);  
+      return this.state.struct.model.map((x) => {
+         switch(x.type){
+            case "LIST":
+               return(<List value = {[['foo' , 'bar'],['foobar', 'barfoo']]} struct = {x['meta-type']}/>);
+            default:
+               return(<Input type={x.type} placeholder={x.id} />);
+
          }
-         else{
-            items.push(<Input type={item.type} placeholder={item.id} />);
-         }
-      }
-      console.log(items);
-      return items;
+      });
    }
 
    render(){

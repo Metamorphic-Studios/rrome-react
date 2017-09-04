@@ -14,11 +14,12 @@ class List extends Component {
    constructor(props){
       super(props);
       this.state = {
-         ...props
+         ...props,
+         value:[]
       }
    }
 
-   componentWillReceieveProps(newProps){
+   componentWillReceiveProps(newProps){
       if(this.props !== newProps){
          this.setState({
             ...newProps
@@ -29,7 +30,6 @@ class List extends Component {
    //returns each individual item depending on the value type within 
    //@param 'i' the array containing the key & value
    renderItem(i){
-      console.log(this.state.struct);
       return this.state.struct.map((x, ix) => {
           switch(x){
              case "DATE":
