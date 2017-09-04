@@ -6,9 +6,7 @@ import {
    FormControl
 } from 'react-bootstrap';
 
-import Text from './items/text';
-import Date from './items/date';
-import Number from './items/number';
+import Input from './items';
 
 class Form extends Component {
    constructor(props){
@@ -18,7 +16,7 @@ class Form extends Component {
       }
    }
 
-   componenWillReceiveProps(newProps){
+   componentWillReceiveProps(newProps){
       if(this.props !== newProps){
          this.setState({
             ...newProps
@@ -42,21 +40,9 @@ class Form extends Component {
 
    _renderItems(){
       var items = [];
-      console.log(this.state.struct.model);
       for(var k in this.state.struct.model){
          var item = this.state.struct.model[k];
-         console.log(item);
-         switch(item.type){
-            case "TEXT":
-               items.push(<Text />);
-               break;
-            case "DATE":
-               items.push(<Date />);
-               break;
-            case "NUMBER":
-               items.push(<Number />);
-               break;
-         }
+         items.push(<Input type={item.type} placeholder={item.id} />);
       }
       console.log(items);
       return items;
