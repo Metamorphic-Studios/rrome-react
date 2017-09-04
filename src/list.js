@@ -14,8 +14,7 @@ class List extends Component {
    constructor(props){
       super(props);
       this.state = {
-         ...props,
-         value:[]
+         ...props
       }
    }
 
