@@ -6,6 +6,8 @@ import{
    ListGroup,
    ListGroupItem
 } from 'react-bootstrap';
+
+import ExpiringDate from './expire';
 //a List component for storing 2d array values to be displayed on a form,
 //ie a Cert or Drivers Lisence
 class List extends Component {
@@ -31,11 +33,13 @@ class List extends Component {
       return this.state.struct.map((x, ix) => {
           switch(x){
              case "DATE":
-               return i[ix];   
+               return (<div>{i[ix]}</div>);
+             case "DATE:D":
+               return (<ExpiringDate value = {i[ix]}/>);
              case "TEXT":
-               return i[ix];
+               return (<div>{i[ix]}</div>);
              case "NUMBER":
-               return i[ix];
+               return (<div>{i[ix]}</div>);
           }
       });  
    }
@@ -45,7 +49,7 @@ class List extends Component {
      return this.state.value.map((x) => {
         console.log(x);
             return (               
-                  <ListGroupItem>
+                  <ListGroupItem style = {{display: 'flex', justifyContent: 'space-between'}}>
                      {this.renderItem(x)}                 
                   </ListGroupItem>
                   );
