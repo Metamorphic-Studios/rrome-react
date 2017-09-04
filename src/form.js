@@ -7,7 +7,7 @@ import {
 } from 'react-bootstrap';
 
 import Input from './items';
-
+import List from './list';
 class Form extends Component {
    constructor(props){
       super(props);
@@ -42,7 +42,12 @@ class Form extends Component {
       var items = [];
       for(var k in this.state.struct.model){
          var item = this.state.struct.model[k];
-         items.push(<Input type={item.type} placeholder={item.id} />);
+         if(item.type == 'LIST'){
+            items.push(<List value = {[['yo', 'foobar'],['na', 'geaf']]} struct = {item['meta-type']}/>);  
+         }
+         else{
+            items.push(<Input type={item.type} placeholder={item.id} />);
+         }
       }
       console.log(items);
       return items;
