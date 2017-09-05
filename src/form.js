@@ -42,7 +42,7 @@ class Form extends Component {
       return this.state.struct.model.map((x) => {
          switch(x.type){
             case "LIST":
-               return(<List value = {[['foo' , 'bar'],['foobar', 'barfoo']]} struct = {x['meta-type']}/>);
+               return(<List value = {[['foo' , 'bar'], ['yeah','na'],['billy','haine'],['geaz','geag']]} struct = {x['meta-type']}/>);
             default:
                return(<Input type={x.type} placeholder={x.id} />);
 

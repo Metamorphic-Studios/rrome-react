@@ -48,7 +48,7 @@ class List extends Component {
      return this.state.value.map((x) => {
         console.log(x);
             return (               
-                  <ListGroupItem style = {{display: 'flex', justifyContent: 'space-between'}}>
+                  <ListGroupItem style = {{display: 'flex', justifyContent: 'space-evenly'}}>
                      {this.renderItem(x)}                 
                   </ListGroupItem>
                   );
@@ -57,7 +57,7 @@ class List extends Component {
 
    render(){
       return(
-            <ListGroup>
+            <ListGroup style = {{display: 'flex', flexDirection: 'column', width: '40%', alignSelf: 'center'}}>
             {this.renderItems()}              
             </ListGroup>
          );
