@@ -29,7 +29,7 @@ class MultiSection extends Component {
 
    render(){
       return (
-            <div style = {{display: 'flex', flex: 1, flexDirection: 'row'}}
+            <div style = {{display: 'flex', flex: 1, flexDirection: 'row'}}>
                {this._renderSections()}
             </div>
          );

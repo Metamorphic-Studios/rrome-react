@@ -39,7 +39,7 @@ class Section extends Component {
    render(){
       return(
          <div style = {{display: 'flex', flex: 1, flexDirection: (this.state.horizontal) ? 'row' : 'column', height: '50%'}}>
-            <h2 style = {{backgroundColor; '#eee'}}>{this.state.struct.name}</h2>
+            <h2 style = {{backgroundColor: '#eee'}}>{this.state.struct.name}</h2>
             {this._renderItems()}
          </div>
       );

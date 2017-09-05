@@ -47,9 +47,10 @@ class Form extends Component {
   }
 
   _render(){
-      return this.state.struct.map((x) => {
-         if(isArray(x)){
+      return this.state.struct.model.map((x) => {
+         if(this.isArray(x)){
             return(<MultiSection sections = {x}/>);
+         }
          else{
             return(<Section horizontal = {false} struct = {x}/>);
          }
