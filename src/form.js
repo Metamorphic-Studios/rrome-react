@@ -8,6 +8,7 @@ import {
 
 import Input from './items';
 import List from './list';
+import Section from './section';
 class Form extends Component {
    constructor(props){
       super(props);
@@ -38,24 +39,26 @@ class Form extends Component {
       });   
     }
 
-   _renderItems(){
-      return this.state.struct.model.map((x) => {
-         switch(x.type){
-            case "LIST":
-               return(<List value = {[['foo' , 'bar'], ['yeah','na'],['billy','haine'],['geaz','geag']]} struct = {x['meta-type']}/>);
-            default:
-               return(<Input type={x.type} placeholder={x.id} />);
+  isArray(array){
+      for(var i=0; i<array.length; i++){
+         if(typeof(array[i]) == 'array') return true;  
+      }
+      return false;
+  }
 
+  _render(){
+      return this.state.struct.map((x) => {
+         if(isArray(x)){
+            return(<MultiSection sections = {x}/>);
+         else{
+            return(<Section horizontal = {false} struct = {x}/>);
          }
-      });
-   }
-
+      }); 
+  }
+ 
    render(){
       return (
-         <div style = {{display: 'flex', flex: 1, flexDirection: 'column', height: '50%'}}>
-            <h2 style = {{backgroundColor: '#eee'}}>{this.state.struct.name}</h2>
-            {this._renderItems()}
-         </div>
+        <div style = {{display: 'flex', flex: 1, flexDirection: 'column'}}> {this._render()} </div>
       );
    }
 }
