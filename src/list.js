@@ -1,12 +1,13 @@
-import React,{
+import React, {
    Component
 }from 'react';
 
 import{
    ListGroup,
-   ListGroupItem
+   ListGroupItem,
+   Button
 } from 'react-bootstrap';
-
+import FormModal from './modal';
 import ExpiringDate from './expire';
 //a List component for storing 2d array values to be displayed on a form,
 //ie a Cert or Drivers Lisence
@@ -14,7 +15,8 @@ class List extends Component {
    constructor(props){
       super(props);
       this.state = {
-         ...props
+         ...props,
+         modVisible: false
       }
    }
 
@@ -49,15 +51,26 @@ class List extends Component {
                   <ListGroupItem style = {{display: 'flex', justifyContent: 'space-evenly'}}>
                      {this.renderItem(x)}                 
                   </ListGroupItem>
+                  
                   );
       });
    }
 
    render(){
       return(
-            <ListGroup style = {{display: 'flex', flexDirection: 'column'}}>
+         <div>
+            <ListGroup style = {{display: 'flex', flexDirection: 'column', margin : '5px'}}>
             {this.renderItems()}              
             </ListGroup>
+            <Button onClick={()=>{this.setState({modVisible: true}); console.log(this.state.modVisible)}}>
+               openModal
+            </Button>
+            <FormModal 
+               show = {this.state.modVisible} 
+               struct = {this.state.struct}
+               onHide = {()=>this.setState({modVisible: false})}
+            />
+         </div>
          );
    }
 }
