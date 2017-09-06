@@ -31,7 +31,7 @@ class Section extends Component {
                case "LIST":
                   return(<List value = {[['foo', 'bar'],['bar', 'foo']]} struct = {x['meta-type']}/>);
                default:
-                  return(<Input type = {x.type} placeholder={x.id} />);
+                  return(<Input type = {x.type} placeholder={x.label} />);
             }
       });
    }

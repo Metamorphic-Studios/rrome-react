@@ -23,13 +23,13 @@ class MultiSection extends Component {
 
    _renderSections(){
       return this.state.sections.map((x) => {
-         return(<Section horizontal = {true} struct = {x}/>);
+         return(<Section horizontal = {false} struct = {x}/>);
       });  
    }
 
    render(){
       return (
-            <div style = {{display: 'flex', flex: 1, flexDirection: 'column'}}>
+            <div style = {{display: 'flex', flex: 1, flexDirection: 'row', width: '80%'}}>
                {this._renderSections()}
             </div>
          );

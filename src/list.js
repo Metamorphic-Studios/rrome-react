@@ -55,7 +55,7 @@ class List extends Component {
 
    render(){
       return(
-            <ListGroup style = {{display: 'flex', flexDirection: 'column', width: '40%', alignSelf: 'center'}}>
+            <ListGroup style = {{display: 'flex', flexDirection: 'column'}}>
             {this.renderItems()}              
             </ListGroup>
          );

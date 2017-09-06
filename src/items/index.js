@@ -37,8 +37,7 @@ export default class Input extends Component {
       return (
          <FormControl
             type={this.parseType()}
-            placeholder={this.state.placeholder} />
-            
+            placeholder={this.state.placeholder} />            
       );
    }
 }

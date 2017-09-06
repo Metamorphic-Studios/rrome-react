@@ -9,7 +9,7 @@ import {
 import Input from './items';
 import List from './list';
 import Section from './section';
-
+import MultiSection from './multiSection';
 class Form extends Component {
    constructor(props){
       super(props);
@@ -42,7 +42,7 @@ class Form extends Component {
 
   isArray(array){
       for(var i=0; i<array.length; i++){
-         if(typeof(array[i]) == 'array') return true;  
+         if(Array.isArray(array[i])) return true;  
       }
       return false;
   }
@@ -60,7 +60,7 @@ class Form extends Component {
  
    render(){
       return (
-        <div style = {{display: 'flex', flex: 1, flexDirection: 'column'}}> {this._render()} </div>
+        <div style = {{display: 'flex', flex: 1, flexDirection: 'column', alignItems: 'center'}}> {this._render()} </div>
       );
    }
 }
