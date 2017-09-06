@@ -9,6 +9,7 @@ import {
 import Input from './items';
 import List from './list';
 import Section from './section';
+
 class Form extends Component {
    constructor(props){
       super(props);
@@ -49,7 +50,7 @@ class Form extends Component {
   _render(){
       return this.state.struct.model.map((x) => {
          if(this.isArray(x)){
-            return(<MultiSection sections = {x}/>);
+           return(<MultiSection sections = {x}/>);
          }
          else{
             return(<Section horizontal = {false} struct = {x}/>);

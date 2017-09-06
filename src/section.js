@@ -38,7 +38,7 @@ class Section extends Component {
 
    render(){
       return(
-         <div style = {{display: 'flex', flex: 1, flexDirection: (this.state.horizontal) ? 'row' : 'column', height: '50%'}}>
+         <div style = {{display: 'flex', flex: 1, flexDirection: (this.state.horizontal) ? 'row' : 'column', width: '80%', alignSelf: 'center'}}>
             <h2 style = {{backgroundColor: '#eee'}}>{this.state.struct.name}</h2>
             {this._renderItems()}
          </div>

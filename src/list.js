@@ -44,9 +44,7 @@ class List extends Component {
    }
    //returns a list of <ListGroupItems> for display within the list itself
    renderItems(){
-      console.log(this.state.value);
      return this.state.value.map((x) => {
-        console.log(x);
             return (               
                   <ListGroupItem style = {{display: 'flex', justifyContent: 'space-evenly'}}>
                      {this.renderItem(x)}                 
