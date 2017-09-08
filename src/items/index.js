@@ -35,7 +35,7 @@ export default class Input extends Component {
 
    render(){
       return (
-         <FormControl style = {{display: 'flex', flexWrap: 'wrap'}}
+         <FormControl style = {{display: 'flex'}}
             type={this.parseType()}
             placeholder={this.state.placeholder} />            
       );

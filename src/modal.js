@@ -42,6 +42,7 @@ class FormModal extends Component{
                {this.renderFields()}
             </Modal.Body>
             <Modal.Footer>
+               <Button> Save </Button>
                <Button onClick={this.state.onHide}>Close</Button>
             </Modal.Footer>
          </Modal>

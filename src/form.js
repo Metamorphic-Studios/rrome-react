@@ -61,7 +61,7 @@ class Form extends Component {
    render(){
       return (
         <div style = {{display: 'flex', flex: 1, flexDirection: 'column', alignItems: 'center', padding: '3%'}}> 
-            <h1> {this.state.struct.name} </h1>
+            <h2> {this.state.struct.name} </h2>
             {this._render()} 
         </div>
       );

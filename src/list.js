@@ -5,10 +5,12 @@ import React, {
 import{
    ListGroup,
    ListGroupItem,
-   Button
+   Button,
+   Modal
 } from 'react-bootstrap';
 import FormModal from './modal';
 import ExpiringDate from './expire';
+import Input from './items';
 //a List component for storing 2d array values to be displayed on a form,
 //ie a Cert or Drivers Lisence
 class List extends Component {
@@ -16,7 +18,7 @@ class List extends Component {
       super(props);
       this.state = {
          ...props,
-         modVisible: false
+         modalShow: false
       }
    }
 
@@ -51,8 +53,30 @@ class List extends Component {
                   <ListGroupItem style = {{display: 'flex', justifyContent: 'space-evenly'}}>
                      {this.renderItem(x)}                 
                   </ListGroupItem>
-                  
                   );
+      });
+   }
+   
+   renderModal(){
+      return(
+         <Modal show = {this.state.modalShow}>
+            <Modal.Header>
+               <Modal.Title>idk</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+               {this.renderModalFields()}
+            </Modal.Body>
+            <Modal.Footer>
+               <Button> Save </Button>
+               <Button onClick={()=>this.setState({modalShow: false})}> Close </Button>
+            </Modal.Footer>
+         </Modal>
+      );  
+   }
+   
+   renderModalFields(){
+      return this.state.struct.map((x) => {
+         return(<Input type = {x} placeholder = {x} />);
       });
    }
 
@@ -62,14 +86,10 @@ class List extends Component {
             <ListGroup style = {{display: 'flex', flexDirection: 'column', margin : '5px'}}>
             {this.renderItems()}              
             </ListGroup>
-            <Button onClick={()=>{this.setState({modVisible: true}); console.log(this.state.modVisible)}}>
+            <Button onClick={()=>{this.setState({modalShow: true})}}>
                openModal
             </Button>
-            <FormModal 
-               show = {this.state.modVisible} 
-               struct = {this.state.struct}
-               onHide = {()=>this.setState({modVisible: false})}
-            />
+            {this.renderModal()}
          </div>
          );
    }

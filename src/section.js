@@ -38,8 +38,8 @@ class Section extends Component {
 
    render(){
       return(
-         <div style = {{display: 'flex', flex: 1, flexDirection: (this.state.horizontal) ? 'row' : 'column', width: '80%', alignSelf: 'center', margin: '10px'}}>
-            <h2 style = {{backgroundColor: '#eee'}}>{this.state.struct.name}</h2>
+         <div style = {{display: 'flex', flex: 1, flexDirection: (this.state.horizontal) ? 'row' : 'column', width: '80%', alignSelf: 'center', margin: '10px',
+         alignItems: 'flex-start'}}>
             {this._renderItems()}
          </div>
       );
