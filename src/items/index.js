@@ -33,10 +33,18 @@ export default class Input extends Component {
       }
    }
 
+   parseClass(){
+      switch(this.state.type){
+         case "TEXTAREA":
+            return "textarea";
+      }
+   }
+
    render(){
       return (
          <FormControl style = {{display: 'flex', flexWrap: 'wrap'}}
-            type={this.parseType()}
+            type={this.parseType()}   
+            componentClass={this.parseClass()}
             placeholder={this.state.placeholder} />            
       );
    }
