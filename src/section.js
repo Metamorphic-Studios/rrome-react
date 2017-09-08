@@ -17,7 +17,7 @@ class Section extends Component {
       }
    }
 
-   componentWillReceieveProps(newProps){
+   componentWillReceiveProps(newProps){
       if(this.state.props !== newProps){
          this.setState({
             ...newProps
@@ -38,8 +38,8 @@ class Section extends Component {
 
    render(){
       return(
-         <div style = {{display: 'flex', flex: 1, flexDirection: (this.state.horizontal) ? 'row' : 'column', width: '80%', alignSelf: 'center', margin: '10px',
-         alignItems: 'flex-start'}}>
+         <div style = {{display: 'flex', flexDirection: (this.state.horizontal) ? 'row' : 'column', width: '80%', alignSelf: 'center',
+         alignItems: 'center'}}>
             {this._renderItems()}
          </div>
       );

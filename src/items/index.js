@@ -42,14 +42,9 @@ export default class Input extends Component {
 
    render(){
       return (
-<<<<<<< HEAD
-         <FormControl style = {{display: 'flex'}}
+         <FormControl style = {{display: 'flex', margin: '2px'}}
             type={this.parseType()}
-=======
-         <FormControl style = {{display: 'flex', flexWrap: 'wrap'}}
-            type={this.parseType()}   
             componentClass={this.parseClass()}
->>>>>>> 5c405413d6455a5fcfbcf20257509fda5c96fe38
             placeholder={this.state.placeholder} />            
       );
    }
