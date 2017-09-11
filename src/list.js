@@ -8,9 +8,11 @@ import{
    Button,
    Modal
 } from 'react-bootstrap';
+
 import FormModal from './modal';
 import ExpiringDate from './expire';
 import Input from './items';
+const Add =  require('react-icons/lib/fa/plus');
 //a List component for storing 2d array values to be displayed on a form,
 //ie a Cert or Drivers Lisence
 class List extends Component {
@@ -34,7 +36,7 @@ class List extends Component {
    //@param 'i' the array containing the key & value
    renderItem(i){
       return this.state.struct['meta-type'].map((x, ix) => {
-          switch(x){
+          switch(x.type){
              case "DATE":
                return (<div>{i[ix]}</div>);
              case "DATE:D":
@@ -76,7 +78,7 @@ class List extends Component {
    
    renderModalFields(){
       return this.state.struct['meta-type'].map((x) => {
-         return(<Input type = {x} placeholder = {x} />);
+         return(<Input type = {x.type} placeholder = {x.label} />);
       });
    }
 
@@ -88,7 +90,7 @@ class List extends Component {
             {this.renderItems()}              
             </ListGroup>
             <Button onClick={()=>{this.setState({modalShow: true})}}>
-               openModal
+               <Add /> Add
             </Button>
             {this.renderModal()}
          </div>
