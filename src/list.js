@@ -78,9 +78,16 @@ class List extends Component {
    }
 
    modalSave(){
+      var v = this.state.value;
+      var a = {
+         ...this.state.modalContent
+      };
+      v.push(a);
+
       if(this.props.onChange){
-         this.props.onChange(this.state.modalContent);
+         this.props.onChange(v);
       }
+      console.log(v);
       this.setState({modalShow: false});
    }
    
@@ -98,7 +105,7 @@ class List extends Component {
 
    render(){
       return(
-         <div>
+         <div style={{flex: 1}}>
             <h4> {this.state.struct.label} </h4>  
             <ListGroup style = {{display: 'flex', flexDirection: 'column', margin : '5px'}}>
             {this.renderItems()}              

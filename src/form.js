@@ -15,7 +15,8 @@ class Form extends Component {
    constructor(props){
       super(props);
       this.state = {
-         ...props
+         ...props,
+         content: {}
       }
    }
 
@@ -48,13 +49,25 @@ class Form extends Component {
       return false;
   }
 
+   handleChange(c){
+      var content = {
+         ...this.state.content,
+         ...c
+      }
+
+      this.setState({
+         content: content
+      });
+      console.log(content);
+   }
+
   _render(){
       return this.state.struct.model.map((x) => {
          if(this.isArray(x)){
-           return(<MultiSection sections = {x}/>);
+           return(<MultiSection sections = {x} onChange={this.handleChange.bind(this)}/>);
          }
          else{
-            return(<Section horizontal = {false} struct = {x}/>);
+            return(<Section horizontal = {false} struct = {x} onChange={this.handleChange.bind(this)}/>);
          }
       }); 
   }

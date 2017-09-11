@@ -14,6 +14,7 @@ class Section extends Component {
       super(props);
       this.state = {
          ...props,
+         content: {}
       }
    }
 
@@ -25,20 +26,39 @@ class Section extends Component {
       }
    }
 
+   mapChange(id, val){
+      var change = {};
+      change[id] = val;
+      
+      var content = {
+         ...this.state.content,
+         ...change
+      }
+      this.setState({
+         content:content
+      });
+
+      if(this.props.onChange){
+         this.props.onChange(content);
+      }
+   }
+
    _renderItems(){
       return this.state.struct.map((x) => {
             switch(x.type){
                case "LIST":
-                  return(<List value = {[['foo', 'bar'],['bar', 'foo']]} struct = {x} onChange={(evt) => {console.log(evt)}}/>);
+                  return(<List value = {(this.state.content[x.id]) ? this.state.content[x.id] : []} struct = {x} onChange={(evt) => { 
+                     this.mapChange(x.id, evt)
+                  }}/>);
                default:
-                  return(<Input type = {x.type} placeholder={x.label} />);
+                  return(<Input type = {x.type} placeholder={x.label} onChange={(evt) => { this.mapChange(x.id, evt) }}/>);
             }
       });
    }
 
    render(){
       return(
-         <div style = {{display: 'flex', flexDirection: (this.state.horizontal) ? 'row' : 'column', width: '80%', alignSelf: 'center', flexWrap: 'wrap'}}>
+         <div style = {{display: 'flex', flexDirection: (this.state.horizontal) ? 'row' : 'column', width: '80%', justifyContent: 'flex-start', flexWrap: 'wrap'}}>
             {this._renderItems()}
          </div>
       );

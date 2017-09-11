@@ -40,12 +40,19 @@ export default class Input extends Component {
       }
    }
 
+   handleChange(evt){
+      if(this.props.onChange){
+         this.props.onChange(evt.target.value);
+      }
+   }
+
    render(){
       return (
          <FormControl style = {{display: 'flex', margin: '2px'}}
             type={this.parseType()}
             componentClass={this.parseClass()}
-            placeholder={this.state.placeholder} />            
+            placeholder={this.state.placeholder}
+            onChange={this.handleChange.bind(this)}/>            
       );
    }
 }
