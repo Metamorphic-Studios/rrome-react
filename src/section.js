@@ -14,6 +14,7 @@ class Section extends Component {
       super(props);
       this.state = {
          ...props,
+         content: {}
       }
    }
 
@@ -25,13 +26,30 @@ class Section extends Component {
       }
    }
 
+   mapChange(id, val){
+      var change = {};
+      change[id] = val;
+      
+      var content = {
+         ...this.state.content,
+         ...change
+      }
+      this.setState({
+         content:content
+      });
+
+      if(this.props.onChange){
+         this.props.onChange(content);
+      }
+   }
+
    _renderItems(){
       return this.state.struct.map((x) => {
             switch(x.type){
                case "LIST":
                   return(<List value = {[['foo', 'bar'],['bar', 'foo']]} struct = {x}/>);
                default:
-                  return(<Input type = {x.type} placeholder={x.label} />);
+                  return(<Input type = {x.type} placeholder={x.label} onChange={(evt) => { this.mapChange(x.id, evt) }}/>);
             }
       });
    }
