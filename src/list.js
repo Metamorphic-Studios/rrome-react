@@ -20,7 +20,8 @@ class List extends Component {
       super(props);
       this.state = {
          ...props,
-         modalShow: false
+         modalShow: false,
+         modalContent: []
       }
    }
 
@@ -63,22 +64,35 @@ class List extends Component {
       return(
          <Modal show = {this.state.modalShow}>
             <Modal.Header>
-               <Modal.Title>idk</Modal.Title>
+               <Modal.Title>Add item to {this.state.struct.label}</Modal.Title>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body style={{display: 'flex', flexDirection: 'row'}}>
                {this.renderModalFields()}
             </Modal.Body>
             <Modal.Footer>
-               <Button> Save </Button>
+               <Button onClick={this.modalSave.bind(this)}> Save </Button>
                <Button onClick={()=>this.setState({modalShow: false})}> Close </Button>
             </Modal.Footer>
          </Modal>
       );  
    }
+
+   modalSave(){
+      if(this.props.onChange){
+         this.props.onChange(this.state.modalContent);
+      }
+      this.setState({modalShow: false});
+   }
    
+   handleModalChange(ix, evt){
+      var modalContent = this.state.modalContent;
+      modalContent[ix] = evt;
+      this.setState({modalContent: modalContent});
+   }
+
    renderModalFields(){
-      return this.state.struct['meta-type'].map((x) => {
-         return(<Input type = {x.type} placeholder = {x.label} />);
+      return this.state.struct['meta-type'].map((x, ix) => {
+         return(<Input type = {x.type} placeholder = {x.label} onChange={(evt) => { this.handleModalChange(ix, evt); }} />);
       });
    }
 

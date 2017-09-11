@@ -29,7 +29,7 @@ class Section extends Component {
       return this.state.struct.map((x) => {
             switch(x.type){
                case "LIST":
-                  return(<List value = {[['foo', 'bar'],['bar', 'foo']]} struct = {x}/>);
+                  return(<List value = {[['foo', 'bar'],['bar', 'foo']]} struct = {x} onChange={(evt) => {console.log(evt)}}/>);
                default:
                   return(<Input type = {x.type} placeholder={x.label} />);
             }
