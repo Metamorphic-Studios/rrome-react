@@ -29,7 +29,7 @@ class Section extends Component {
       return this.state.struct.map((x) => {
             switch(x.type){
                case "LIST":
-                  return(<List value = {[['foo', 'bar'],['bar', 'foo']]} struct = {x['meta-type']}/>);
+                  return(<List value = {[['foo', 'bar'],['bar', 'foo']]} struct = {x}/>);
                default:
                   return(<Input type = {x.type} placeholder={x.label} />);
             }
@@ -38,8 +38,7 @@ class Section extends Component {
 
    render(){
       return(
-         <div style = {{display: 'flex', flexDirection: (this.state.horizontal) ? 'row' : 'column', width: '80%', alignSelf: 'center',
-         alignItems: 'center'}}>
+         <div style = {{display: 'flex', flexDirection: (this.state.horizontal) ? 'row' : 'column', width: '80%', alignSelf: 'center', flexWrap: 'wrap'}}>
             {this._renderItems()}
          </div>
       );

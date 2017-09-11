@@ -33,7 +33,7 @@ class List extends Component {
    //returns each individual item depending on the value type within 
    //@param 'i' the array containing the key & value
    renderItem(i){
-      return this.state.struct.map((x, ix) => {
+      return this.state.struct['meta-type'].map((x, ix) => {
           switch(x){
              case "DATE":
                return (<div>{i[ix]}</div>);
@@ -75,15 +75,15 @@ class List extends Component {
    }
    
    renderModalFields(){
-      return this.state.struct.map((x) => {
+      return this.state.struct['meta-type'].map((x) => {
          return(<Input type = {x} placeholder = {x} />);
       });
    }
 
    render(){
       return(
-         <div style ={{width: 'inherit', margin: '10px'}}>
-            <h2> {this.state.struct} </h2>  
+         <div>
+            <h4> {this.state.struct.label} </h4>  
             <ListGroup style = {{display: 'flex', flexDirection: 'column', margin : '5px'}}>
             {this.renderItems()}              
             </ListGroup>

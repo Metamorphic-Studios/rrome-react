@@ -1,5 +1,7 @@
 /* TODO: insert default styles of your component here for easy access */
-
+.form-control{
+   width: initial;
+}
 .menu-container {
    display: flex;
    flex: 1;
