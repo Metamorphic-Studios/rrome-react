@@ -65,10 +65,7 @@ class Table extends Component {
                onClick: (e, handleOriginal) => {
                   if(this.props.onItemSelect){
                      this.props.onItemSelect(rowInfo.original);
-                  }
-                  if(handleOriginal){
-                     handleOriginal();
-                  }
+                  } 
                }
             }
          }}
