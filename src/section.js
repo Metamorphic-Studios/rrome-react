@@ -58,7 +58,7 @@ class Section extends Component {
 
    render(){
       return(
-         <div style = {{display: 'flex', flexDirection: (this.state.horizontal) ? 'row' : 'column', width: '80%', justifyContent: 'flex-start', flexWrap: 'wrap'}}>
+         <div style = {{display: 'flex', flexDirection: (this.state.horizontal) ? 'row' : 'column', width: '80%', justifyContent: 'flex-start', flexWrap: 'wrap', flex: 1}}>
             {this._renderItems()}
          </div>
       );
