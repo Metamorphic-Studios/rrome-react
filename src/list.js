@@ -54,7 +54,7 @@ class List extends Component {
    renderItems(){
      return this.state.value.map((x) => {
             return (               
-                  <ListGroupItem style = {{display: 'flex', justifyContent: 'space-evenly'}}>
+                  <ListGroupItem style = {{display: 'flex', justifyContent: 'space-between'}}>
                      {this.renderItem(x)}                
                      <Button bsSize = 'xsmall'><Glyphicon glyph = 'remove'/></Button> 
                   </ListGroupItem>
