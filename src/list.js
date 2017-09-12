@@ -6,6 +6,7 @@ import{
    ListGroup,
    ListGroupItem,
    Button,
+   Glyphicon,
    Modal
 } from 'react-bootstrap';
 
@@ -54,7 +55,8 @@ class List extends Component {
      return this.state.value.map((x) => {
             return (               
                   <ListGroupItem style = {{display: 'flex', justifyContent: 'space-evenly'}}>
-                     {this.renderItem(x)}                 
+                     {this.renderItem(x)}                
+                     <Button bsSize = 'xsmall'><Glyphicon glyph = 'remove'/></Button> 
                   </ListGroupItem>
                   );
       });
