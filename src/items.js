@@ -10,6 +10,7 @@ export default class Input extends Component {
    constructor(props){
       super(props);
       this.state = {
+         initialValue: '',
          ...props
       }
    }
@@ -41,6 +42,7 @@ export default class Input extends Component {
    }
 
    handleChange(evt){
+      this.setState({value: evt.target.value});
       if(this.props.onChange){
          this.props.onChange(evt.target.value);
       }
@@ -52,6 +54,7 @@ export default class Input extends Component {
             type={this.parseType()}
             componentClass={this.parseClass()}
             placeholder={this.state.placeholder}
+            value={(this.state.value) ? this.state.value : this.state.initialValue}
             onChange={this.handleChange.bind(this)}/>            
       );
    }

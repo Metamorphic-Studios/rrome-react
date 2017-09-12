@@ -19,9 +19,15 @@ class Section extends Component {
    }
 
    componentWillReceiveProps(newProps){
-      if(this.state.props !== newProps){
+      if(this.props !== newProps){
          this.setState({
             ...newProps
+         });
+      }
+
+      if(this.props.struct !== newProps.struct){
+         this.setState({
+            content: {}
          });
       }
    }
@@ -47,11 +53,11 @@ class Section extends Component {
       return this.state.struct.map((x) => {
             switch(x.type){
                case "LIST":
-                  return(<List value = {(this.state.content[x.id]) ? this.state.content[x.id] : []} struct = {x} onChange={(evt) => { 
+                  return(<List value = {(this.state.content[x.id]) ? this.state.content[x.id] : []} struct = {x} onChange={(evt) => {
                      this.mapChange(x.id, evt)
                   }}/>);
                default:
-                  return(<Input type = {x.type} placeholder={x.label} onChange={(evt) => { this.mapChange(x.id, evt) }}/>);
+                  return(<Input type = {x.type} placeholder={x.label} onChange={(evt) => { this.mapChange(x.id, evt) }} value={x.value} />);
             }
       });
    }
