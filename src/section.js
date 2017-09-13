@@ -53,7 +53,7 @@ class Section extends Component {
       return this.state.struct.map((x) => {
             switch(x.type){
                case "LIST":
-                  return(<List value = {(this.state.content[x.id]) ? this.state.content[x.id] : []} struct = {x} onChange={(evt) => {
+                  return(<List value = {(x.value) ? x.value : []} struct = {x} onChange={(evt) => {
                      this.mapChange(x.id, evt)
                   }}/>);
                default:

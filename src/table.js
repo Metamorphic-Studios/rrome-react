@@ -59,7 +59,7 @@ class Table extends Component {
       <div style={{flex:1, display: 'flex', flexDirection: 'column'}}>
 
          <h2 style={{alignSelf: 'center'}}>{this.state.struct.name}</h2>
-
+         <Button style={{alignSelf: 'flex-start'}} onClick={this.props.onCreate.bind(this)}>Create</Button>
          <ReactTable
          style={{flex: 1, display: 'flex'}}
          data={this.state.data}

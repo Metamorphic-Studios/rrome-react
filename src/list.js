@@ -52,11 +52,11 @@ class List extends Component {
    }
    //returns a list of <ListGroupItems> for display within the list itself
    renderItems(){
-     return this.state.value.map((x) => {
+     return this.state.value.map((x, ix) => {
             return (               
                   <ListGroupItem style = {{display: 'flex', justifyContent: 'space-between'}}>
                      {this.renderItem(x)}                
-                     <Button bsSize = 'xsmall'><Glyphicon glyph = 'remove'/></Button> 
+                     <Button bsSize = 'xsmall' onClick={this.remove.bind(this, ix)}><Glyphicon glyph = 'remove'/></Button> 
                   </ListGroupItem>
                   );
       });
@@ -77,6 +77,14 @@ class List extends Component {
             </Modal.Footer>
          </Modal>
       );  
+   }
+
+   remove(ix){
+      var v = this.state.value;
+      v.splice(ix, 1);
+      if(this.props.onChange){
+         this.props.onChange(v);
+      }
    }
 
    modalSave(){

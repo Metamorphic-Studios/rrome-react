@@ -38,7 +38,11 @@ class Form extends Component {
    }
 
    saveForm(form){
-      return fetch('http://localhost:3100/rrome/data/model/' + this.state.struct.id, {
+      var url = "http://localhost:3100/rrome/data/model/" + this.state.struct.id;
+      if(this.state.content._id){
+         url = "http://localhost:3100/rrome/data/id/" +  this.state.content._id.id;
+      }
+      return fetch(url, {
          method: 'POST',
          headers: {
             'Content-Type': 'application/json'
@@ -68,6 +72,12 @@ class Form extends Component {
       });
    }
 
+   mapStructs(structs, content){
+      return structs.map((x) => {
+         return this.mapStruct(x, content);
+      });
+   }
+
    handleChange(c){
       var content = {
          ...this.state.content,
@@ -83,7 +93,7 @@ class Form extends Component {
   _render(){
       return this.state.struct.model.map((x) => {
          if(this.isArray(x)){
-           return(<MultiSection sections = {x} onChange={this.handleChange.bind(this)}/>);
+           return(<MultiSection sections = {this.mapStructs(x, this.state.content)} onChange={this.handleChange.bind(this)}/>);
          }
          else{
             return(<Section horizontal = {false} struct = {this.mapStruct(x, this.state.content)} onChange={this.handleChange.bind(this)}/>);
@@ -101,8 +111,10 @@ class Form extends Component {
          </div>
         <div style = {{display: 'flex', flex: 1, flexDirection: 'column', alignItems: 'center'}}> 
             {this._render()} 
-            <Button onClick={this.saveForm.bind(this, this.state.content)}>Create</Button>
         </div>
+        <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center'}}>
+            <Button onClick={this.saveForm.bind(this, this.state.content)}>{(this.state.content._id) ? 'Save' : 'Create'}</Button>
+         </div>
       </div>
       );
    }

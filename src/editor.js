@@ -10,11 +10,19 @@ export default class Editor extends Component {
       super(props);
       this.state = {
          ...props,
-         selectedItem: {}
+         selectedItem: {},
+         editing: false
       }
    }
 
    componentWillReceiveProps(newProps){
+      if(this.props.struct.id !== newProps.struct.id){
+         this.setState({
+            editing: false,
+            selectedItem: {}
+         });
+      }
+
       if(this.props !== newProps){
          this.setState({
             ...newProps
@@ -31,6 +39,12 @@ export default class Editor extends Component {
             this.setState({
                editing: true,
                selectedItem: item
+            });
+         }}
+         onCreate={() => {
+            this.setState({
+               editing: true,
+               selectedItem: {}
             });
          }}/>);
       }
