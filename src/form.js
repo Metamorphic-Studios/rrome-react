@@ -6,7 +6,7 @@ import {
    FormControl,
    Button
 } from 'react-bootstrap';
-
+import Back from 'react-icons/lib/fa/chevron-left';
 import Input from './items';
 import List from './list';
 import Section from './section';
@@ -16,8 +16,8 @@ class Form extends Component {
    constructor(props){
       super(props);
       this.state = {
-         ...props,
-         content: {}
+         content: {},
+         ...props 
       }
    }
 
@@ -58,25 +58,7 @@ class Form extends Component {
       return false;
   }
 
-   flatten(arr){
-  return arr.reduce(function (flat, toFlatten) {
-         return flat.concat(Array.isArray(toFlatten) ? flatten(toFlatten) : toFlatten);
-       }, []);
-   }
    
-   getKeys(arr){
-      var flat = this.flatten(arr);
-      return flat.map((x) => x.id);
-   }
-
-   pairValues(keys, content){
-      var pair = {};
-      keys.map((x) => {
-         pair[x] = content[x];
-      });
-      return pair;
-   }
-
    mapStruct(struct, content){
       return struct.map((x) => {
          return {
@@ -108,15 +90,30 @@ class Form extends Component {
          }
       }); 
   }
+
  
    render(){
       return (
-        <div style = {{display: 'flex', flex: 1, flexDirection: 'column', alignItems: 'center'}}> 
+      <div style={{display: 'flex', flex: 1, flexDirection: 'column'}}>
+         <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+            {this._back()}   
             <h2 style={{marginTop: '10px'}}> {this.state.struct.name} </h2>
+         </div>
+        <div style = {{display: 'flex', flex: 1, flexDirection: 'column', alignItems: 'center'}}> 
             {this._render()} 
             <Button onClick={this.saveForm.bind(this, this.state.content)}>Create</Button>
         </div>
+      </div>
       );
+   }
+
+
+   _back(){
+      if(this.props.onBack){
+         return (<Back style={{cursor: 'pointer', fontSize: '20px', marginRight: '20px'}} onClick={this.props.onBack.bind(this)}/>);
+      }else{
+         return null;
+      }
    }
 }
 

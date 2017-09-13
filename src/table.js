@@ -15,7 +15,7 @@ class Table extends Component {
       super(props);
       this.state = {
          ...props,
-         data: [],
+         data: []
       }
    }
 
@@ -56,7 +56,11 @@ class Table extends Component {
 
    _renderViewer(){
       return (
-        <ReactTable
+      <div style={{flex:1, display: 'flex', flexDirection: 'column'}}>
+
+         <h2 style={{alignSelf: 'center'}}>{this.state.struct.name}</h2>
+
+         <ReactTable
          style={{flex: 1, display: 'flex'}}
          data={this.state.data}
          columns={(this.state.struct && this.state.struct["display_keys"]) ? this.state.struct["display_keys"].map((x) => ({ accessor: x.id, Header: x.label})) : []}
@@ -70,6 +74,7 @@ class Table extends Component {
             }
          }}
           />
+      </div>
         );
    }
 
