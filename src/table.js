@@ -9,6 +9,7 @@ import {
 
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
+import '../styles/style.css';
 
 class Table extends Component {
    constructor(props){
@@ -57,23 +58,25 @@ class Table extends Component {
    _renderViewer(){
       return (
       <div style={{flex:1, display: 'flex', flexDirection: 'column'}}>
-
-         <h2 style={{alignSelf: 'center'}}>{this.state.struct.name}</h2>
-         <Button style={{alignSelf: 'flex-start'}} onClick={this.props.onCreate.bind(this)}>Create</Button>
-         <ReactTable
-         style={{flex: 1, display: 'flex'}}
-         data={this.state.data}
-         columns={(this.state.struct && this.state.struct["display_keys"]) ? this.state.struct["display_keys"].map((x) => ({ accessor: x.id, Header: x.label})) : []}
-         getTdProps={(state, rowInfo, column, instance) => {
-            return {
-               onClick: (e, handleOriginal) => {
-                  if(this.props.onItemSelect){
-                     this.props.onItemSelect(rowInfo.original);
-                  } 
+         
+         <div className = "tableHeader">{this.state.struct.name}</div>
+         <div className = "tableContainer">
+            <Button style={{alignSelf: 'flex-start', marginBottom : '10px'}} onClick={this.props.onCreate.bind(this)}>Create</Button>
+            <ReactTable
+            style={{flex: 1, display: 'flex'}}
+            data={this.state.data}
+            columns={(this.state.struct && this.state.struct["display_keys"]) ? this.state.struct["display_keys"].map((x) => ({ accessor: x.id, Header: x.label})) : []}
+            getTdProps={(state, rowInfo, column, instance) => {
+               return {
+                  onClick: (e, handleOriginal) => {
+                     if(this.props.onItemSelect){
+                        this.props.onItemSelect(rowInfo.original);
+                     } 
+                  }
                }
-            }
-         }}
-          />
+            }}
+            />
+         </div>
       </div>
         );
    }

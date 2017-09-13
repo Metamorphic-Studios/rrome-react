@@ -11,6 +11,7 @@ import Input from './items';
 import List from './list';
 import Section from './section';
 import MultiSection from './multiSection';
+import '../styles/style.css';
 
 class Form extends Component {
    constructor(props){
@@ -116,14 +117,14 @@ class Form extends Component {
    render(){
       return (
       <div style={{display: 'flex', flex: 1, flexDirection: 'column'}}>
-         <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+         <div className = "formHeader">
             {this._back()}   
-            <h2 style={{marginTop: '10px'}}> {this.state.struct.name} </h2>
+            <h2> {this.state.struct.name} </h2>
          </div>
-        <div style = {{display: 'flex', flex: 1, flexDirection: 'column', alignItems: 'center'}}> 
+        <div className = "formBody" style = {{display: 'flex', flex: 1, flexDirection: 'column', alignItems: 'center'}}> 
             {this._render()} 
         </div>
-        <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center'}}>
+        <div className = "formFooter">
             <Button onClick={() => {
                if(this.state.content._id){
                   this.deleteForm(this.state.content._id.id).then((resp) => {
@@ -146,7 +147,7 @@ class Form extends Component {
 
    _back(){
       if(this.props.onBack){
-         return (<Back style={{cursor: 'pointer', fontSize: '20px', marginRight: '20px'}} onClick={this.props.onBack.bind(this)}/>);
+         return (<Back className = "backButton" size = {50} onClick={this.props.onBack.bind(this)}/>);
       }else{
          return null;
       }
