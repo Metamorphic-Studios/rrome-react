@@ -37,6 +37,17 @@ class Form extends Component {
       }
    }
 
+   deleteForm(id){
+      return fetch('http://localhost:3100/rrome/data/id/' + id + '/delete', {
+         method: 'POST', 
+         headers: {
+            'Content-Type': 'application/json'
+         }
+      }).then((resp) => {
+         return resp.json();
+      });
+   }
+
    saveForm(form){
       var url = "http://localhost:3100/rrome/data/model/" + this.state.struct.id;
       if(this.state.content._id){
@@ -113,7 +124,20 @@ class Form extends Component {
             {this._render()} 
         </div>
         <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center'}}>
-            <Button onClick={this.saveForm.bind(this, this.state.content)}>{(this.state.content._id) ? 'Save' : 'Create'}</Button>
+            <Button onClick={() => {
+               if(this.state.content._id){
+                  this.deleteForm(this.state.content._id.id).then((resp) => {
+                     this.props.onBack();
+                  });
+               }else{
+                  this.props.onBack();
+               }
+            }}>{(this.state.content._id) ? 'Delete' : 'Cancel'}</Button>
+            <Button onClick={() => {
+               this.saveForm(this.state.content).then((resp) => {
+                 this.props.onBack() 
+               });
+            }}>{(this.state.content._id) ? 'Save' : 'Create'}</Button>
          </div>
       </div>
       );
