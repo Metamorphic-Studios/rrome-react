@@ -50,7 +50,7 @@ export default class Input extends Component {
 
    render(){
       return (
-         <FormControl style = {{display: 'flex', margin: '2px'}}
+         <FormControl style = {{display: 'flex', margin: '2px', resize: 'none'}}
             type={this.parseType()}
             componentClass={this.parseClass()}
             placeholder={this.state.placeholder}
