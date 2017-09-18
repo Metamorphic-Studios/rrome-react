@@ -1,0 +1,52 @@
+.tableHeader {
+   align-self: center;
+   color : #282828;
+   background : #FFF;
+   border-bottom : 1px solid #CCC;
+   height : 80px;
+   width : 100%;
+   font-align : center;
+   padding-top : 20px;
+   font-size : 30px;
+}
+
+.tableContainer {
+   display : flex;
+   flex-direction : column;
+   margin : 20px;
+}
+
+.formHeader {
+   display : flex;
+   flex-direction : row;
+   color : #282828;
+   height : 70px;
+   border-bottom : 1px solid #CCC;
+   margin-bottom : 20px;
+   width : 100%;
+}
+
+.formHeader h2 {
+   font-size : 30px;
+   font-align : center;
+   width : 100%;
+}
+
+.backButton {
+   padding-top : 20px;
+   cursor : pointer;
+   position : fixed;
+}
+
+.formBody {
+   overflow-Y : scroll;
+}
+
+.formFooter {
+   display : flex;
+   height : 70px;
+   border-top : 1px solid #CCC;
+   flex-direction : row;
+   justify-content : flex-end;
+   align-items : center;
+}
