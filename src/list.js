@@ -116,7 +116,7 @@ class List extends Component {
    render(){
       return(
          <div style={{flex: 1}}>
-            <h4> {this.state.struct.label} </h4>  
+            <h4> {this.state.struct.label} </h4>
             <ListGroup style = {{display: 'flex', flexDirection: 'column', margin : '5px'}}>
             {this.renderItems()}              
             </ListGroup>

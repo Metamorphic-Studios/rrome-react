@@ -8,6 +8,7 @@ import {
 
 import Input from './items';
 import List from './list';
+import ForeignSelector from './foreignSelector';
 
 class Section extends Component {
    constructor(props){
@@ -56,6 +57,8 @@ class Section extends Component {
                   return(<List value = {(x.value) ? x.value : []} struct = {x} onChange={(evt) => {
                      this.mapChange(x.id, evt)
                   }}/>);
+               case "FSELECT":
+                  return(<ForeignSelector struct = {x}/>);
                default:
                   return(<Input type = {x.type} placeholder={x.label} onChange={(evt) => { this.mapChange(x.id, evt) }} value={x.value} />);
             }
