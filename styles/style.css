@@ -1,13 +1,12 @@
 .tableHeader {
-   align-self: center;
    color : #282828;
    background : #FFF;
    border-bottom : 1px solid #CCC;
    height : 80px;
    width : 100%;
-   font-align : center;
-   padding-top : 20px;
-   font-size : 30px;
+   justify-content : center;
+   align-items : center;
+   display : flex;
 }
 
 .tableContainer {
@@ -17,25 +16,50 @@
 }
 
 .formHeader {
+   align-items : center;
    display : flex;
    flex-direction : row;
    color : #282828;
-   height : 70px;
-   border-bottom : 1px solid #CCC;
+   height : 62px;
    margin-bottom : 20px;
+   border-bottom : 1px solid #CCC;
    width : 100%;
 }
 
 .formHeader h2 {
-   font-size : 30px;
    font-align : center;
    width : 100%;
 }
 
 .backButton {
-   padding-top : 20px;
+   height : 30px;
+   display : flex;
    cursor : pointer;
    position : fixed;
+}
+
+.tableCreateButton {
+   margin-bottom : 10px;
+   height : 50px;
+   width : 80px;
+   font-align : center;
+}
+
+.formFooter {
+   padding-right : 50px;
+}
+
+.btn-footer {
+   height : 50%;
+   width : 70px;
+}
+
+.btn-danger {
+   margin-right : 10px;
+}
+
+.btn-primary {
+   
 }
 
 .formBody {

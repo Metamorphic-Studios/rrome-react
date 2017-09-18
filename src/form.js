@@ -125,7 +125,7 @@ class Form extends Component {
             {this._render()} 
         </div>
         <div className = "formFooter">
-            <Button onClick={() => {
+            <Button className = "btn btn-footer btn-danger" onClick={() => {
                if(this.state.content._id){
                   this.deleteForm(this.state.content._id.id).then((resp) => {
                      this.props.onBack();
@@ -134,7 +134,7 @@ class Form extends Component {
                   this.props.onBack();
                }
             }}>{(this.state.content._id) ? 'Delete' : 'Cancel'}</Button>
-            <Button onClick={() => {
+            <Button  className = "btn btn-footer btn-primary" onClick={() => {
                this.saveForm(this.state.content).then((resp) => {
                  this.props.onBack() 
                });

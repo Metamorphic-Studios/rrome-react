@@ -59,9 +59,11 @@ class Table extends Component {
       return (
       <div style={{flex:1, display: 'flex', flexDirection: 'column'}}>
          
-         <div className = "tableHeader">{this.state.struct.name}</div>
+         <div className = "tableHeader">
+            <h2>{this.state.struct.name}</h2>
+         </div>
          <div className = "tableContainer">
-            <Button style={{alignSelf: 'flex-start', marginBottom : '10px'}} onClick={this.props.onCreate.bind(this)}>Create</Button>
+            <Button className = "btn btnPrimary tableCreateButton" onClick = {} >Create</Button>
             <ReactTable
             style={{flex: 1, display: 'flex'}}
             data={this.state.data}
