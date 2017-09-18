@@ -63,7 +63,7 @@ class Table extends Component {
             <h2>{this.state.struct.name}</h2>
          </div>
          <div className = "tableContainer">
-            <Button className = "btn btnPrimary tableCreateButton" onClick = {} >Create</Button>
+            <Button className = "btn btn-primary tableCreateButton" onClick={this.props.onCreate.bind(this)} >Create</Button>
             <ReactTable
             style={{flex: 1, display: 'flex'}}
             data={this.state.data}

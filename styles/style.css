@@ -21,7 +21,6 @@
    flex-direction : row;
    color : #282828;
    height : 62px;
-   margin-bottom : 20px;
    border-bottom : 1px solid #CCC;
    width : 100%;
 }
@@ -40,7 +39,7 @@
 
 .tableCreateButton {
    margin-bottom : 10px;
-   height : 50px;
+   height : 40px;
    width : 80px;
    font-align : center;
 }
@@ -63,6 +62,8 @@
 }
 
 .formBody {
+   padding-top : 20px;
+   display : flex;
    overflow-Y : scroll;
 }
 
