@@ -25,7 +25,12 @@ export default class ForeignSelector extends Component {
       var id = this.state.struct["meta-type"].id
       this.getOptions(id).then((options) => {
          var opt = options.map((x) => {
-            return {value: x._id.id, label: x[this.state.struct["meta-type"].lookup]};
+            return {
+               value : x._id.id, 
+               label: this.state.struct["meta-type"]["display_keys"].map((y) => {
+                  return x[y];
+               }).join(" ") 
+            }
          });
          this.setState({
             options: opt
