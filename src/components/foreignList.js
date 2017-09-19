@@ -15,7 +15,7 @@ export default class ForeignList extends Component{
       this.state = {
          ...props,
          listData : [],
-         data : (props.value.length > 0) ? props.value : [],
+         data : (props.value && props.value.length > 0) ? props.value : [],
          modalShow: false,
          modalValue: ''
       }
