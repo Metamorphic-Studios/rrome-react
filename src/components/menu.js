@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 
 import 'react-table/react-table.css'
-import '../style.css'
+import '../../style.css'
 
 class Menu extends Component {
    constructor(props){

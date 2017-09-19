@@ -13,7 +13,7 @@ import Input from './items';
 import List from './list';
 import Section from './section';
 import MultiSection from './multiSection';
-import '../styles/style.css';
+import '../../styles/style.css';
 
 class Form extends Component {
    constructor(props){
