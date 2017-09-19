@@ -11,46 +11,62 @@ export default class ForeignList extends Component{
       super(props);
       this.state = {
          ...props,
+         listData : [],
          data : [],
          modalShow: false,
          modalValue: ''
       }
    }
 
-   componentWillMount(){
-      var id = this.state.struct["meta-type"].id;
-      this.getData(id).then((data) => {
-         var dat = data.map((x) => {
-            return this.state.struct["meta-type"]["display_keys"].map((e) => {
-               return x[e];
-            });
-         });
-         this.setState({
-            data : dat
-         });
-      });
-   }
-
    getData(id){
-      return fetch("http:localhost:3100/rrome/data/model/" + id).then((res) => {
+      return fetch("http://localhost:3100/rrome/data/id/" + id).then((res) => {
          return res.json();
       });
    }
 
+   getListData(){
+      this.setState({
+         listData : []
+      });
+      this.state.data.map((dat) => {
+         this.getData(dat.value).then((result) => {
+            var employee = this.state.struct["meta-type"]["list_display"].map((e) => {
+               return result[e];
+            });
+            return employee;   
+         }).then((res) => {
+            var l = this.state.listData;
+            l.push(res);
+            this.setState({
+               listData : l
+            });
+         });
+      });
+   }
+   
+   _renderItem(item){
+      var arr = [];
+      for(var i = 0; i < item.length; i++){
+         arr.push(<div style ={{marginRight : '5px'}}>{item[i]}</div>);
+      } 
+      return arr;
+   }
    _renderItems(){
-      return this.state.data.map((x) => {
-         return (<ListGroupItem>{x.value}</ListGroupItem>);
+      return this.state.listData.map((x) => {
+         return (<ListGroupItem style ={{display : 'flex', justifyContent : 'left'}}>{this._renderItem(x)}</ListGroupItem>);
       });
    }
 
    modalSave(){
       var id = this.state.modalValue;
       var dat = this.state.data;
+      if(dat.includes(id))
+         return;
       dat.push(id);
       this.setState({
-         modalValue: '',
          data: dat
       });
+      this.getListData();
    }
 
    _renderModal(){
@@ -73,9 +89,9 @@ export default class ForeignList extends Component{
 
    render(){
       return (
-         <div>
+         <div style = {{flex : 1}}>
          <h4>{this.state.struct.label}</h4>
-         <ListGroup>
+         <ListGroup style = {{display : 'flex', flexDirection : 'column', margin : '5px'}}>
             {this._renderItems()}
          </ListGroup>
          {this._renderModal()}
