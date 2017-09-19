@@ -15,10 +15,14 @@ export default class ForeignList extends Component{
       this.state = {
          ...props,
          listData : [],
-         data : [],
+         data : (props.value.length > 0) ? props.value : [],
          modalShow: false,
          modalValue: ''
       }
+   }
+
+   componentWillMount(){
+      this.getListData();
    }
 
    getListData(){
@@ -63,6 +67,9 @@ export default class ForeignList extends Component{
       this.setState({
          data: dat
       });
+      if(this.props.onChange){
+         this.props.onChange(dat);
+      }
       this.getListData();
    }
 

@@ -12,7 +12,7 @@ export default class ForeignSelector extends Component {
       this.state = {
          ...props,
          options: [],
-         value: ''
+         value: (props.value) ? props.value : ''
       }
    } 
 
