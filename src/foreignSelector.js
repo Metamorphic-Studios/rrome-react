@@ -9,7 +9,8 @@ export default class ForeignSelector extends Component {
       super(props);
       this.state = {
          ...props,
-         options: []
+         options: [],
+         value: ''
       }
    } 
 
@@ -42,17 +43,26 @@ export default class ForeignSelector extends Component {
       return fetch("http://localhost:3100/rrome/data/model/"+id).then((resp)=> {return resp.json()});
    }
 
+   onChange(val){
+      this.setState({value: val});
+      if(this.props.onChange){
+         this.props.onChange(val);
+      }  
+   }
+
    render(){
      return(
-         <div>
+        <div style={this.props.style}>
          <Select
             name = ''
             searchable = {false}
             clearable = {false}
             placeholder = {this.state.struct.label}
             options = {this.state.options}
+            value={this.state.value}
+            onChange={this.onChange.bind(this)}
          />
-      </div>
+        </div>
       );
    }
 }
