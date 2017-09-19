@@ -52,7 +52,7 @@ export function getDataById(id){
 }
 
 export function getDataByModel(id){
-   return fetch(conf.baseURL + 'data/model' + id, {
+   return fetch(conf.baseURL + 'data/model/' + id, {
       method: "GET",
       credentials: 'include'
    }).then((resp) => {
