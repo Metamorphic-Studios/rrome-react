@@ -46,7 +46,7 @@ class List extends Component {
              case "TEXT":
                return (<div>{i[ix]}</div>);
              case "NUMBER":
-               return (<div>{i[ix]}</div>);
+               return (<div style = {{marginRight: '5px'}}>{i[ix]}</div>);
           }
       });  
    }
@@ -54,7 +54,7 @@ class List extends Component {
    renderItems(){
      return this.state.value.map((x, ix) => {
             return (               
-                  <ListGroupItem style = {{display: 'flex', justifyContent: 'space-between'}}>
+                  <ListGroupItem style = {{display: 'flex', justifyContent: 'left'}}>
                      {this.renderItem(x)}                
                      <Button bsSize = 'xsmall' onClick={this.remove.bind(this, ix)}><Glyphicon glyph = 'remove'/></Button> 
                   </ListGroupItem>
