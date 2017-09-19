@@ -40,11 +40,11 @@ class List extends Component {
       return this.state.struct['meta-type'].map((x, ix) => {
           switch(x.type){
              case "DATE":
-               return (<div>{i[ix]}</div>);
+               return (<div style = {{marginRight: '5px'}}>{i[ix]}</div>);
              case "DATE:D":
                return (<ExpiringDate value = {i[ix]}/>);
              case "TEXT":
-               return (<div>{i[ix]}</div>);
+               return (<div style = {{marginRight: '5px'}}>{i[ix]}</div>);
              case "NUMBER":
                return (<div style = {{marginRight: '5px'}}>{i[ix]}</div>);
           }
