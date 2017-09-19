@@ -6,6 +6,8 @@ import {
    FormControl,
    Button
 } from 'react-bootstrap';
+import { deleteDataById, createDataByModel, saveDataById } from '../utils/data';
+
 import Back from 'react-icons/lib/fa/chevron-left';
 import Input from './items';
 import List from './list';
@@ -39,32 +41,15 @@ class Form extends Component {
    }
 
    deleteForm(id){
-      return fetch('http://localhost:3100/rrome/data/id/' + id + '/delete', {
-         method: 'POST', 
-         headers: {
-            'Content-Type': 'application/json'
-         }
-      }).then((resp) => {
-         return resp.json();
-      });
+      return deleteDataById(id);
    }
 
    saveForm(form){
-      var url = "http://localhost:3100/rrome/data/model/" + this.state.struct.id;
       if(this.state.content._id){
-         url = "http://localhost:3100/rrome/data/id/" +  this.state.content._id.id;
+         return saveDataById(this.state.content._id.id, form);
+      }else{
+         return createDataByModel(this.state.struct.id, form);
       }
-      return fetch(url, {
-         method: 'POST',
-         headers: {
-            'Content-Type': 'application/json'
-         },
-         body: JSON.stringify({
-            blob: form
-         })
-      }).then((resp) => {
-         return resp.json()
-      });   
     }
 
   isArray(array){

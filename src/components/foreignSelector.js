@@ -2,6 +2,8 @@ import React, {
    Component
 } from 'react';
 
+import { getDataByModel } from '../utils/data';
+
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 export default class ForeignSelector extends Component {
@@ -24,7 +26,7 @@ export default class ForeignSelector extends Component {
    
    componentWillMount(){
       var id = this.state.struct["meta-type"].id
-      this.getOptions(id).then((options) => {
+      getDataByModel(id).then((options) => {
          var opt = options.map((x) => {
             return {
                value : x._id.id, 
@@ -39,9 +41,6 @@ export default class ForeignSelector extends Component {
       });
    }
 
-   getOptions(id){
-      return fetch("http://localhost:3100/rrome/data/model/"+id).then((resp)=> {return resp.json()});
-   }
 
    onChange(val){
       this.setState({value: val});

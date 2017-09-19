@@ -2,6 +2,9 @@ import React, {
    Component
 }from 'react';
 
+import { getDataById } from '../utils/data';
+
+
 import { Button, ListGroup, ListGroupItem, Modal } from 'react-bootstrap';
 import ForeignSelector from './foreignSelector';
 const Add =  require('react-icons/lib/fa/plus');
@@ -18,18 +21,12 @@ export default class ForeignList extends Component{
       }
    }
 
-   getData(id){
-      return fetch("http://localhost:3100/rrome/data/id/" + id).then((res) => {
-         return res.json();
-      });
-   }
-
    getListData(){
       this.setState({
          listData : []
       });
       this.state.data.map((dat) => {
-         this.getData(dat.value).then((result) => {
+         getDataById(dat.value).then((result) => {
             var employee = this.state.struct["meta-type"]["list_display"].map((e) => {
                return result[e];
             });

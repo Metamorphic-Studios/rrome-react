@@ -1,10 +1,9 @@
 // this should be the entry point to your library
 'use strict'
 module.exports = {
-   Table: require('./table').default,
-   Item: require('./items').default,
-   Menu: require('./menu').default,
-   Form: require('./form').default,
-   Editor: require('./editor').default
+   Table: require('./components/table').default,
+   Menu: require('./components/menu').default,
+   Form: require('./components/form').default,
+   Editor: require('./components/editor').default
 };
 

@@ -7,6 +7,8 @@ import {
    Button
 } from 'react-bootstrap';
 
+import { getDataByModel } from '../utils/data';
+
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 import '../styles/style.css';
@@ -20,14 +22,8 @@ class Table extends Component {
       }
    }
 
-   getData(id){
-      return fetch('http://localhost:3100/rrome/data/model/' + id).then((resp) => {
-         return resp.json();
-      });
-   }
-
    componentWillMount(){
-      this.getData(this.state.struct.id).then((data) => {
+      getDataByModel(this.state.struct.id).then((data) => {
          this.setState({
             data: data
          });
@@ -42,7 +38,7 @@ class Table extends Component {
       }
 
       if(newProps.struct.id !== this.props.struct.id){
-         this.getData(newProps.struct.id).then((data) => {
+         getDataByModel(newProps.struct.id).then((data) => {
             this.setState({
                data: data
             });
