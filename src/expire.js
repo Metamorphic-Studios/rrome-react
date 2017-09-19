@@ -25,7 +25,7 @@ class ExpiringDate extends Component{
       var m = moment(date);
       if(date.getTime() < Date.now()){
          return(
-            <div style = {marginRight: '5px'>Expires on {m.format('DD/MM/YYYY')} </div>        
+            <div style = {{marginRight: '5px'}}>Expires on {m.format('DD/MM/YYYY')} </div>        
          );  
       }
       else{
