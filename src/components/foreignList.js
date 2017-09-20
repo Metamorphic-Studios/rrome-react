@@ -5,7 +5,13 @@ import React, {
 import { getDataById } from '../utils/data';
 
 
-import { Button, ListGroup, ListGroupItem, Modal } from 'react-bootstrap';
+import { 
+   Button, 
+   ListGroup, 
+   ListGroupItem,
+   Modal,
+   Glyphicon
+} from 'react-bootstrap';
 import ForeignSelector from './foreignSelector';
 const Add =  require('react-icons/lib/fa/plus');
 
@@ -54,7 +60,10 @@ export default class ForeignList extends Component{
    }
    _renderItems(){
       return this.state.listData.map((x) => {
-         return (<ListGroupItem style ={{display : 'flex', justifyContent : 'left'}}>{this._renderItem(x)}</ListGroupItem>);
+         return (<ListGroupItem style ={{display : 'flex', justifyContent : 'left'}}>
+               {this._renderItem(x)}
+               <Button bsSize = 'xsmall' onClick={this.remove.bind(this, ix)}><Glyphicon glyph = 'remove'/></Button> 
+               </ListGroupItem>);
       });
    }
 
