@@ -7,11 +7,12 @@ import {
    Button
 } from 'react-bootstrap';
 
-import { getDataByModel } from '../utils/data';
+import { getDataByModel, getDataById } from '../utils/data';
 
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 import '../../styles/style.css';
+var async = require('async');
 
 class Table extends Component {
    constructor(props){
@@ -24,9 +25,7 @@ class Table extends Component {
 
    componentWillMount(){
       getDataByModel(this.state.struct.id).then((data) => {
-         this.setState({
-            data: data
-         });
+         this.lookupItemData(data);
       });
    }
 
@@ -38,14 +37,52 @@ class Table extends Component {
       }
 
       if(newProps.struct.id !== this.props.struct.id){
-         getDataByModel(newProps.struct.id).then((data) => {
-            this.setState({
-               data: data
-            });
-         });
+         getDataByModel(newProps.struct.id).then((data) => { 
+            this.lookupItemData(data);
+         }); 
       }
    }
 
+   flatten(arr) {
+      return arr.reduce((flat, toFlatten) => {
+         return flat.concat(Array.isArray(toFlatten) ? this.flatten(toFlatten) : toFlatten);
+      }, []);
+   }
+
+   lookupItemData(data){
+      async.map(data, (item, cb) => {
+         console.log("First", item);
+         async.map(this.flatten(this.state.struct.model), (modelElement, callback) => {
+            console.log("Second", modelElement);
+            if(modelElement.type == "FSELECT"){
+               console.log("Select", modelElement.id);
+               var id = item[modelElement.id];
+               if(id){
+                  getDataById(id).then((res) => {
+                     var e =  modelElement["meta-type"]["display_keys"].map((key) => {
+                        return res[key];
+                     }).join(" ");
+                     callback(null, {key: modelElement.id, value: e});
+                  });
+               }
+            }else{
+               callback(null, {key: modelElement.id, value: item[modelElement.id]});
+            }
+         }, (err, results) => {
+            console.log(results);
+            var obj = {};
+            for(var i = 0; i< results.length; i++){
+               obj[results[i].key] = results[i].value;
+            }
+            cb(err, obj);
+         })
+      }, (err, results) => {
+         console.log(results);
+         if(!err){
+             this.setState({data : results}); 
+         }
+      });  
+   }
 
    _render(){
          return this._renderViewer(); 
