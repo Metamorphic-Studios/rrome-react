@@ -50,7 +50,22 @@ export default class ForeignList extends Component{
          });
       });
    }
-   
+  
+   remove(element){
+      var tempList = this.state.listData;
+      var index = -1;
+      for(var i = 0; i < tempList.length; i++){
+         if(tempList[i] == element){
+            index = i;
+            break;
+         }
+      }
+      tempList.splice(index, 1);
+      this.setState({
+      
+      });
+   }
+
    _renderItem(item){
       var arr = [];
       for(var i = 0; i < item.length; i++){
@@ -62,7 +77,7 @@ export default class ForeignList extends Component{
       return this.state.listData.map((x) => {
          return (<ListGroupItem style ={{display : 'flex', justifyContent : 'left'}}>
                {this._renderItem(x)}
-               <Button bsSize = 'xsmall' onClick={this.remove.bind(this, ix)}><Glyphicon glyph = 'remove'/></Button> 
+               <Button bsSize = 'xsmall' onClick={this.remove.bind(this, x)}><Glyphicon glyph = 'remove'/></Button> 
                </ListGroupItem>);
       });
    }
