@@ -19,7 +19,8 @@ class Table extends Component {
       super(props);
       this.state = {
          ...props,
-         data: []
+         data: [],
+         origData: []
       }
    }
 
@@ -50,12 +51,10 @@ class Table extends Component {
    }
 
    lookupItemData(data){
+      this.setState({origData: data});
       async.map(data, (item, cb) => {
-         console.log("First", item);
          async.map(this.flatten(this.state.struct.model), (modelElement, callback) => {
-            console.log("Second", modelElement);
             if(modelElement.type == "FSELECT"){
-               console.log("Select", modelElement.id);
                var id = item[modelElement.id];
                if(id){
                   getDataById(id).then((res) => {
@@ -69,15 +68,16 @@ class Table extends Component {
                callback(null, {key: modelElement.id, value: item[modelElement.id]});
             }
          }, (err, results) => {
-            console.log(results);
             var obj = {};
             for(var i = 0; i< results.length; i++){
-               obj[results[i].key] = results[i].value;
+               if(results[i].value){
+                  obj[results[i].key] = results[i].value;
+               }
             }
+            obj["_id"] = item["_id"];
             cb(err, obj);
          })
       }, (err, results) => {
-         console.log(results);
          if(!err){
              this.setState({data : results}); 
          }
@@ -105,7 +105,12 @@ class Table extends Component {
                return {
                   onClick: (e, handleOriginal) => {
                      if(this.props.onItemSelect){
-                        this.props.onItemSelect(rowInfo.original);
+                        for(var i = 0; i < this.state.data.length; i++){
+                           if(rowInfo.original["_id"].id == this.state.data[i]["_id"].id){
+                              this.props.onItemSelect(this.state.origData[i]);
+                              break;
+                           }
+                        }
                      } 
                   }
                }

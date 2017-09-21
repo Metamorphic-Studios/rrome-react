@@ -68,7 +68,7 @@ class List extends Component {
             <Modal.Header>
                <Modal.Title>Add item to {this.state.struct.label}</Modal.Title>
             </Modal.Header>
-            <Modal.Body style={{display: 'flex', flexDirection: 'row'}}>
+            <Modal.Body style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
                {this.renderModalFields()}
             </Modal.Body>
             <Modal.Footer>
