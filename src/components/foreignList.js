@@ -75,9 +75,9 @@ export default class ForeignList extends Component{
    }
    _renderItems(){
       return this.state.listData.map((x) => {
-         return (<ListGroupItem style ={{display : 'flex', justifyContent : 'left'}}>
+         return (<ListGroupItem style ={{display : 'flex', justifyContent : 'space-around'}}>
                {this._renderItem(x)}
-               <Button bsSize = 'xsmall' onClick={this.remove.bind(this, x)}><Glyphicon glyph = 'remove'/></Button> 
+               <Button bsSize = 'xsmall' onClick={this.remove.bind(this, x)} style={{position: 'absolute', right: '5px'}}><Glyphicon glyph = 'remove'/></Button> 
                </ListGroupItem>);
       });
    }

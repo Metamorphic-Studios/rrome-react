@@ -54,9 +54,9 @@ class List extends Component {
    renderItems(){
      return this.state.value.map((x, ix) => {
             return (               
-                  <ListGroupItem style = {{display: 'flex', justifyContent: 'left'}}>
+                  <ListGroupItem style = {{display: 'flex', justifyContent: 'space-around'}}>
                      {this.renderItem(x)}                
-                     <Button bsSize = 'xsmall' onClick={this.remove.bind(this, ix)}><Glyphicon glyph = 'remove'/></Button> 
+                     <Button bsSize = 'xsmall' onClick={this.remove.bind(this, ix)} style={{position: 'absolute', right: '5px'}}><Glyphicon glyph = 'remove'/></Button> 
                   </ListGroupItem>
                   );
       });

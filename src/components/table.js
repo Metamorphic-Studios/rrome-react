@@ -63,6 +63,8 @@ class Table extends Component {
                      }).join(" ");
                      callback(null, {key: modelElement.id, value: e});
                   });
+               }else{
+                  callback(null, {key: modelElement.id, value: ''});
                }
             }else{
                callback(null, {key: modelElement.id, value: item[modelElement.id]});
