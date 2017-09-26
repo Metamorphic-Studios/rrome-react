@@ -72,8 +72,8 @@ class List extends Component {
                {this.renderModalFields()}
             </Modal.Body>
             <Modal.Footer>
-               <Button onClick={this.modalSave.bind(this)}> Save </Button>
-               <Button onClick={()=>this.setState({modalShow: false})}> Close </Button>
+               <Button onClick={this.modalSave.bind(this)}> Ok </Button>
+               <Button onClick={()=>this.setState({modalShow: false})}> Cancel </Button>
             </Modal.Footer>
          </Modal>
       );  

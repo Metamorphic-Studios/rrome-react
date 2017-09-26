@@ -107,8 +107,8 @@ export default class ForeignList extends Component{
                <ForeignSelector struct={this.state.struct} style={{flex:1 }} onChange={(val) => this.setState({modalValue: val})}/> 
             </Modal.Body>
             <Modal.Footer>
-               <Button onClick={this.modalSave.bind(this)}> Save </Button>
-               <Button onClick={()=>this.setState({modalShow: false})}> Close </Button>
+               <Button onClick={this.modalSave.bind(this)}> Ok </Button>
+               <Button onClick={()=>this.setState({modalShow: false})}> Cancel </Button>
             </Modal.Footer>
          </Modal>
       );

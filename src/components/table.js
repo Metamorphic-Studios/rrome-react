@@ -24,7 +24,7 @@ class Table extends Component {
       }
    }
 
-   componentWillMount(){
+   componentDidMount(){
       getDataByModel(this.state.struct.id).then((data) => {
          this.lookupItemData(data);
       });
