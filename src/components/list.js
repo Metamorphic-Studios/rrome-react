@@ -73,7 +73,7 @@ class List extends Component {
             </Modal.Body>
             <Modal.Footer>
                <Button onClick={this.modalSave.bind(this)}> Save </Button>
-               <Button onClick={()=>this.setState({modalShow: false})}> Close </Button>
+               <Button onClick={()=>this.setState({modalShow: false, modelContent: []})}> Close </Button>
             </Modal.Footer>
          </Modal>
       );  
@@ -98,7 +98,7 @@ class List extends Component {
          this.props.onChange(v);
       }
       console.log(v);
-      this.setState({modalShow: false});
+      this.setState({modalShow: false, modelContent: []});
    }
    
    handleModalChange(ix, evt){
@@ -115,12 +115,12 @@ class List extends Component {
 
    render(){
       return(
-         <div style={{flex: 1}}>
+         <div style={{flex: 1, display: 'flex', flexDirection: 'column'}}>
             <h4> {this.state.struct.label} </h4>
             <ListGroup style = {{display: 'flex', flexDirection: 'column', margin : '5px'}}>
             {this.renderItems()}              
             </ListGroup>
-            <Button onClick={()=>{this.setState({modalShow: true})}}>
+            <Button style={{alignSelf: 'center'}} onClick={()=>{this.setState({modalShow: true})}}>
                <Add /> Add
             </Button>
             {this.renderModal()}

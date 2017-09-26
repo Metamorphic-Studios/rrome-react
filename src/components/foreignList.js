@@ -62,7 +62,7 @@ export default class ForeignList extends Component{
       }
       tempList.splice(index, 1);
       this.setState({
-      
+         listData : tempList 
       });
    }
 
@@ -107,7 +107,7 @@ export default class ForeignList extends Component{
                <ForeignSelector struct={this.state.struct} style={{flex:1 }} onChange={(val) => this.setState({modalValue: val})}/> 
             </Modal.Body>
             <Modal.Footer>
-               <Button onClick={this.modalSave.bind(this)}> Save </Button>
+               <Button onClick={this.modalSave.bind(this)}> Add </Button>
                <Button onClick={()=>this.setState({modalShow: false})}> Close </Button>
             </Modal.Footer>
          </Modal>
