@@ -61,9 +61,13 @@ export default class ForeignList extends Component{
          }
       }
       tempList.splice(index, 1);
-      this.setState({
-         listData : tempList 
-      });
+      var dat = this.state.data;
+      dat.splice(index, 1);
+      
+      this.setState({data: dat, listData: tempList});
+      if(this.props.onChange){
+         this.props.onChange(dat);
+      }
    }
 
    _renderItem(item){
@@ -89,7 +93,9 @@ export default class ForeignList extends Component{
          return;
       dat.push(id);
       this.setState({
-         data: dat
+         data: dat,
+         modalShow: false,
+         modalValue: ''
       });
       if(this.props.onChange){
          this.props.onChange(dat);
