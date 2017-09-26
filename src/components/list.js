@@ -106,12 +106,9 @@ class List extends Component {
       var a = {
          ...this.state.modalContent
       };
-      console.log(this.state.editing);
       if(this.state.editing !== false){
-         console.log("Editing", this.state.editing);
          v[this.state.editing] = a;     
       }else{
-         console.log("Not editing");
          v.push(a);
       }
 
@@ -135,7 +132,7 @@ class List extends Component {
 
    render(){
       return(
-         <div style={{flex: 1, display: 'flex', flexDirection: 'column'}}>
+         <div style={{flex: 1}}>
             <h4> {this.state.struct.label} </h4>
             <ListGroup style = {{display: 'flex', flexDirection: 'column', margin : '5px'}}>
             {this.renderItems()}              

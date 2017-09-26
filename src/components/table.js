@@ -38,8 +38,16 @@ class Table extends Component {
          });
       }
 
-      if(newProps.struct.id !== this.props.struct.id || newProps.refresh == true){
+      console.log('Table Refresh:', newProps.refresh);
+      
+      if(newProps.struct.id !== this.props.struct.id){
          getDataByModel(newProps.struct.id).then((data) => { 
+            this.lookupItemData(data);
+         }); 
+      }
+
+      if(newProps.refresh == true){
+         getDataByModel(this.state.struct.id).then((data) => { 
             this.lookupItemData(data);
          }); 
          newProps.onEditorRefresh();
