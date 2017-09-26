@@ -75,7 +75,7 @@ class List extends Component {
             </Modal.Body>
             <Modal.Footer>
                <Button onClick={this.modalSave.bind(this)}> Ok </Button>
-               <Button onClick={()=>this.setState({modalShow: false, editing: false})}> Cancel </Button>
+               <Button onClick={()=>this.setState({modalShow: false, editing: false, modalContent: []})}> Cancel </Button>
             </Modal.Footer>
          </Modal>
       );  
@@ -118,7 +118,7 @@ class List extends Component {
       if(this.props.onChange){
          this.props.onChange(v);
       } 
-      this.setState({modalShow: false, editing: false});
+      this.setState({modalShow: false, editing: false, modalContent: []});
    }
    
    handleModalChange(ix, evt){
@@ -135,12 +135,12 @@ class List extends Component {
 
    render(){
       return(
-         <div style={{flex: 1}}>
+         <div style={{flex: 1, display: 'flex', flexDirection: 'column'}}>
             <h4> {this.state.struct.label} </h4>
             <ListGroup style = {{display: 'flex', flexDirection: 'column', margin : '5px'}}>
             {this.renderItems()}              
             </ListGroup>
-            <Button onClick={()=>{this.setState({modalShow: true})}}>
+            <Button style={{alignSelf: 'center'}} onClick={()=>{this.setState({modalShow: true})}}>
                <Add /> Add
             </Button>
             {this.renderModal()}

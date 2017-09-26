@@ -62,7 +62,7 @@ export default class ForeignList extends Component{
       }
       tempList.splice(index, 1);
       this.setState({
-      
+         listData : tempList 
       });
    }
 
