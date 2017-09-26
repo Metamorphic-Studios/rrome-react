@@ -37,10 +37,11 @@ class Table extends Component {
          });
       }
 
-      if(newProps.struct.id !== this.props.struct.id){
+      if(newProps.struct.id !== this.props.struct.id || newProps.refresh == true){
          getDataByModel(newProps.struct.id).then((data) => { 
             this.lookupItemData(data);
          }); 
+         newProps.onEditorRefresh();
       }
    }
 
@@ -90,6 +91,10 @@ class Table extends Component {
          return this._renderViewer(); 
    }
 
+   createTableButtonClick(){
+      this.props.onCreate();
+   }
+
    _renderViewer(){
       return (
       <div style={{flex:1, display: 'flex', flexDirection: 'column'}}>
@@ -98,7 +103,7 @@ class Table extends Component {
             <h2>{this.state.struct.name}</h2>
          </div>
          <div className = "tableContainer">
-            <Button className = "btn btn-primary tableCreateButton" onClick={this.props.onCreate.bind(this)} >Create</Button>
+            <Button className = "btn btn-primary tableCreateButton" onClick={this.createTableButtonClick.bind(this)} >Create</Button>
             <ReactTable
             style={{flex: 1, display: 'flex'}}
             data={this.state.data}

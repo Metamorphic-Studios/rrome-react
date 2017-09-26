@@ -45,6 +45,7 @@ class Form extends Component {
    }
 
    saveForm(form){
+      this.props.refreshData();
       if(this.state.content._id){
          return saveDataById(this.state.content._id.id, form);
       }else{

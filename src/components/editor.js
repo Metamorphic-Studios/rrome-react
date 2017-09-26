@@ -30,12 +30,24 @@ export default class Editor extends Component {
       }
    }
 
+   onBack(){
+      this.setState({editing: false});
+   }
+   
+   refreshEditor(){
+      this.setState({refresh : true});
+   }
+
+   onEditorRefreshFinish(){
+      this.setState({refresh : false});
+   }
+
    render(){
       if(!this.state.struct) return null;
       if(this.state.editing){
-         return (<Form struct={this.state.struct} content={this.state.selectedItem} onBack={() => this.setState({editing: false}) }/>);
+         return (<Form refreshData={this.refreshEditor} struct={this.state.struct} content={this.state.selectedItem} onBack={this.onBack}/>);
       }else{
-         return (<Table struct={this.state.struct} onItemSelect={(item) => {
+         return (<Table refresh={this.state.refresh} onEditorRefresh={this.onEditorRefresh} struct={this.state.struct} onItemSelect={(item) => {
             this.setState({
                editing: true,
                selectedItem: item
