@@ -3,6 +3,7 @@
    background : #FFF;
    border-bottom : 1px solid #CCC;
    height : 80px;
+   min-height: 60px;
    width : 100%;
    justify-content : center;
    align-items : center;

@@ -22,6 +22,7 @@ class List extends Component {
       this.state = {
          ...props,
          modalShow: false,
+         editing: false,
          modalContent: []
       }
    }
@@ -55,7 +56,8 @@ class List extends Component {
      return this.state.value.map((x, ix) => {
             return (               
                   <ListGroupItem style = {{display: 'flex', justifyContent: 'space-around'}}>
-                     {this.renderItem(x)}                
+                     {this.renderItem(x)}               
+                     <Button bsSize = "xsmall" style={{position: 'absolute', right: '35px'}} onClick={this.edit.bind(this, ix)}><Glyphicon glyph='pencil' /></Button>
                      <Button bsSize = 'xsmall' onClick={this.remove.bind(this, ix)} style={{position: 'absolute', right: '5px'}}><Glyphicon glyph = 'remove'/></Button> 
                   </ListGroupItem>
                   );
@@ -72,8 +74,8 @@ class List extends Component {
                {this.renderModalFields()}
             </Modal.Body>
             <Modal.Footer>
-               <Button onClick={this.modalSave.bind(this)}> Save </Button>
-               <Button onClick={()=>this.setState({modalShow: false})}> Close </Button>
+               <Button onClick={this.modalSave.bind(this)}> Ok </Button>
+               <Button onClick={()=>this.setState({modalShow: false, editing: false, modalContent: []})}> Cancel </Button>
             </Modal.Footer>
          </Modal>
       );  
@@ -87,18 +89,36 @@ class List extends Component {
       }
    }
 
+   edit(ix){
+      var e = {
+         ...this.state.value[ix]
+      };
+      this.setState({
+         modalContent: e,
+         editing: ix,
+         modalShow: true
+      });
+      console.log("Editing", ix);
+   }
+
    modalSave(){
       var v = this.state.value;
       var a = {
          ...this.state.modalContent
       };
-      v.push(a);
+      console.log(this.state.editing);
+      if(this.state.editing !== false){
+         console.log("Editing", this.state.editing);
+         v[this.state.editing] = a;     
+      }else{
+         console.log("Not editing");
+         v.push(a);
+      }
 
       if(this.props.onChange){
          this.props.onChange(v);
-      }
-      console.log(v);
-      this.setState({modalShow: false});
+      } 
+      this.setState({modalShow: false, editing: false, modalContent: []});
    }
    
    handleModalChange(ix, evt){
@@ -109,18 +129,18 @@ class List extends Component {
 
    renderModalFields(){
       return this.state.struct['meta-type'].map((x, ix) => {
-         return(<Input type = {x.type} placeholder = {x.label} onChange={(evt) => { this.handleModalChange(ix, evt); }} />);
+         return(<Input type = {x.type} placeholder = {x.label} onChange={(evt) => { this.handleModalChange(ix, evt); }} value={this.state.modalContent[ix]}/>);
       });
    }
 
    render(){
       return(
-         <div style={{flex: 1}}>
+         <div style={{flex: 1, display: 'flex', flexDirection: 'column'}}>
             <h4> {this.state.struct.label} </h4>
             <ListGroup style = {{display: 'flex', flexDirection: 'column', margin : '5px'}}>
             {this.renderItems()}              
             </ListGroup>
-            <Button onClick={()=>{this.setState({modalShow: true})}}>
+            <Button style={{alignSelf: 'center'}} onClick={()=>{this.setState({modalShow: true})}}>
                <Add /> Add
             </Button>
             {this.renderModal()}

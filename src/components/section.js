@@ -70,7 +70,7 @@ class Section extends Component {
 
    render(){
       return(
-         <div style = {{display: 'flex', flexDirection: (this.state.horizontal) ? 'row' : 'column', width: '80%', justifyContent: 'flex-start', flexWrap: 'wrap', flex: 1}}>
+         <div style = {{display: 'flex', flexDirection: 'column', width: '80%', justifyContent: 'flex-start', flexWrap: (this.state.inMulti) ? null : 'wrap', minHeight: '15vh'}}>
             {this._renderItems()}
          </div>
       );

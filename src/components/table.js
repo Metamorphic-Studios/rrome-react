@@ -12,6 +12,7 @@ import { getDataByModel, getDataById } from '../utils/data';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 import '../../styles/style.css';
+import '../../styles/table.css';
 var async = require('async');
 
 class Table extends Component {
@@ -24,7 +25,7 @@ class Table extends Component {
       }
    }
 
-   componentWillMount(){
+   componentDidMount(){
       getDataByModel(this.state.struct.id).then((data) => {
          this.lookupItemData(data);
       });
