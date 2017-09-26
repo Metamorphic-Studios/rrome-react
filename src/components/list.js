@@ -106,7 +106,7 @@ class List extends Component {
       var a = {
          ...this.state.modalContent
       };
-      if(this.state.editing !== false){ 
+      if(this.state.editing !== false){
          v[this.state.editing] = a;     
       }else{
          v.push(a);
