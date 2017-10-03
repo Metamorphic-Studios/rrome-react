@@ -7,7 +7,10 @@ import{
    ListGroupItem,
    Button,
    Glyphicon,
-   Modal
+   Modal,
+   FormGroup,
+   FormControl,
+   ControlLabel
 } from 'react-bootstrap';
 
 import FormModal from './modal';
@@ -70,7 +73,7 @@ class List extends Component {
             <Modal.Header>
                <Modal.Title>Add item to {this.state.struct.label}</Modal.Title>
             </Modal.Header>
-            <Modal.Body style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
+            <Modal.Body style={{display: 'flex', flexFlow : 'column'}}>
                {this.renderModalFields()}
             </Modal.Body>
             <Modal.Footer>
@@ -126,7 +129,10 @@ class List extends Component {
 
    renderModalFields(){
       return this.state.struct['meta-type'].map((x, ix) => {
-         return(<Input type = {x.type} placeholder = {x.label} onChange={(evt) => { this.handleModalChange(ix, evt); }} value={this.state.modalContent[ix]}/>);
+         return(<FormGroup>
+                  <ControlLabel>{x.label}</ControlLabel>
+                  <Input type = {x.type} placeholder = {'Enter ' + x.label} onChange={(evt) => { this.handleModalChange(ix, evt); }} value={this.state.modalContent[ix]}/>
+               </FormGroup>);
       });
    }
 

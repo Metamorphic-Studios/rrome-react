@@ -5,7 +5,8 @@ import React, {
 import{
    Modal,
    FormControl,
-   Button
+   Button,
+   Label
 } from 'react-bootstrap';
 
 import Input from './items';
@@ -28,7 +29,7 @@ class FormModal extends Component{
 
    renderFields(){
       return this.state.struct.map((x) => {
-            return(<Input type = {x} placeholder = {x} />);
+            return(<div><Label>{x}</Label><Input type = {x} placeholder = {'Enter' + x} /></div>);
       });
    }
 

@@ -38,7 +38,6 @@ class Table extends Component {
          });
       }
 
-      console.log('Table Refresh:', newProps.refresh);
       
       if(newProps.struct.id !== this.props.struct.id){
          getDataByModel(newProps.struct.id).then((data) => { 
