@@ -8,6 +8,7 @@ import {
 } from 'react-bootstrap';
 import { deleteDataById, createDataByModel, saveDataById } from '../utils/data';
 
+import WarnModal from './warningModal.js';
 import Back from 'react-icons/lib/fa/chevron-left';
 import Input from './items';
 import List from './list';
@@ -20,7 +21,9 @@ class Form extends Component {
       super(props);
       this.state = {
          content: {},
-         ...props 
+         ...props,
+         beenSaved: true,
+         showWarningModal : false
       }
    }
 
@@ -45,12 +48,14 @@ class Form extends Component {
    }
 
    saveForm(form){
-      
       if(this.state.content._id){
          return saveDataById(this.state.content._id.id, form);
       }else{
          return createDataByModel(this.state.struct.id, form);
       }
+      this.setState({
+         beenSaved: true
+      });
     }
 
   isArray(array){
@@ -83,9 +88,30 @@ class Form extends Component {
       }
 
       this.setState({
-         content: content
+         content: content,
+         beenSaved: false
       });
-      console.log(content);
+   }
+   
+   renderWarning(){
+      return(<WarnModal showModal = {this.state.showWarningModal} answer={this.handleWarning.bind(this)}/>);
+   }
+
+   handleWarning(i){
+      //save&quit
+      if(i == 0){
+         this.saveForm(this.state.content).then((resp) => {
+            this.props.onBack() 
+         });
+      }
+      //quit
+      if(i == 1){
+         this.props.onBack();    
+      }
+      //doNothing
+      if(i == 2){
+         return;
+      }
    }
 
   _render(){
@@ -111,13 +137,22 @@ class Form extends Component {
             {this._render()} 
         </div>
         <div className = "formFooter">
-            <Button className = "btn btn-footer btn-danger" onClick={() => {
+            {this.renderWarning()}
+            <Button className = "btn btn-footer btn-danger" onClick={() => {   
                if(this.state.content._id){
                   this.deleteForm(this.state.content._id.id).then((resp) => {
+                     this.props.onBack()
+                  }); 
+               }
+               else{
+                  console.log(this.state.beenSaved);
+                  if(this.state.beenSaved){
                      this.props.onBack();
-                  });
-               }else{
-                  this.props.onBack();
+                  }else{
+                     this.setState({
+                           showWarningModal: true
+                     });
+                  }
                }
             }}>{(this.state.content._id) ? 'Delete' : 'Cancel'}</Button>
             <Button  className = "btn btn-footer btn-primary" onClick={() => {
