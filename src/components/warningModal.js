@@ -17,7 +17,7 @@ class WarnModal extends Component {
       }
    }
    
-   componentWillRecieveProps(newProps){
+   componentWillReceiveProps(newProps){
       if(this.state.props !== newProps){
          console.log('props changing');
          this.setState({
@@ -28,39 +28,30 @@ class WarnModal extends Component {
 
    quit(){
       console.log('modal quit');
-      this.setState({
-         showModal: false
-      });
-      this.state.answer(1);  
+      this.props.quitWarningModal();  
    }
    
    saveQuit(){
       console.log('modal savequit');
-      this.setState({
-         showModal: false  
-      });
-      this.state.answer(0);
+      this.props.saveWarningModal();
    }
 
    goBack(){
       console.log('modal goback');
-      this.setState({
-         showModal: false  
-      });
-      this.state.answer(2);
+      this.props.leaveWarningModal();
    }
 
    render(){
       return(
       <div>
-         <Modal show = {true}>
+         <Modal show = {this.state.showModal}>
             <Modal.Header>
                <Modal.Title>Unsaved changes! Are you sure you want to quit?</Modal.Title>
             </Modal.Header>
             <Modal.Body style = {{display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
                <Button onClick = {() => {this.goBack()}}>No</Button>
-               <Button onClick = {() => {this.quit()}}>\Yes</Button>
-               <Button onClick = {() => {this.saveQuit}}>Save and quit</Button>
+               <Button onClick = {() => {this.quit()}}>Yes</Button>
+               <Button onClick = {() => {this.saveQuit()}}>Save and quit</Button>
             </Modal.Body>
          </Modal>
       </div>   

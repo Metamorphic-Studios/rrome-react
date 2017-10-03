@@ -94,25 +94,34 @@ class Form extends Component {
    }
    
    renderWarning(){
-      return(<WarnModal showModal = {this.state.showWarningModal} answer={this.handleWarning.bind(this)}/>);
+      return(<WarnModal 
+         saveWarningModal={this.saveWarningModal.bind(this)}
+         quitWarningModal={this.quitWarningModal.bind(this)}
+         leaveWarningModal={this.leaveWarningModal.bind(this)}
+         showModal = {this.state.showWarningModal}/>);
    }
 
-   handleWarning(i){
-      //save&quit
-      if(i == 0){
-         this.saveForm(this.state.content).then((resp) => {
-            this.props.onBack() 
-         });
-      }
-      //quit
-      if(i == 1){
-         this.props.onBack();    
-      }
-      //doNothing
-      if(i == 2){
-         return;
-      }
+   saveWarningModal(){
+      this.setState({
+         showWarningModal : false
+      });
+      this.saveForm(this.state.content).then((res) => {
+         this.props.onBack();
+      });
    }
+
+   leaveWarningModal(){
+      this.setState({
+         showWarningModal : false
+      });
+   }
+
+   quitWarningModal(){
+      this.setState({
+         showWarningModal : false
+      }); 
+      this.props.onBack();
+   }   
 
   _render(){
       return this.state.struct.model.map((x) => {
