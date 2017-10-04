@@ -138,7 +138,7 @@ class Table extends Component {
 
    render(){
       return (
-        <div style = {{display: 'flex', flex: 1, flexDirection: 'column'}}>
+        <div style = {{display: 'flex', height : '100%', flex: 1, flexDirection: 'column'}}>
             {this._render()}
             </div>
          );

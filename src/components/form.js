@@ -137,12 +137,12 @@ class Form extends Component {
  
    render(){
       return (
-      <div style={{display: 'flex', flex: 1, flexDirection: 'column'}}>
+      <div style={{display: 'flex', flex: 1, height : '100%', flexDirection: 'column'}}>
          <div className = "formHeader">
             {this._back()}   
             <h2> {this.state.struct.name} </h2>
          </div>
-        <div className = "formBody" style = {{display: 'flex', flex: 1, flexDirection: 'column', alignItems: 'center'}}> 
+        <div className = "formBody" style = {{display: 'flex', flex: 1, flexDirection: 'column', height : '100%', alignItems: 'center'}}> 
             {this._render()} 
         </div>
         <div className = "formFooter">
