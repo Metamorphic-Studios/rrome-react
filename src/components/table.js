@@ -14,6 +14,7 @@ import 'react-table/react-table.css';
 import '../../styles/style.css';
 import '../../styles/table.css';
 var async = require('async');
+var utils = require('../utils');
 
 class Table extends Component {
    constructor(props){
@@ -37,7 +38,6 @@ class Table extends Component {
             ...newProps
          });
       }
-
       
       if(newProps.struct.id !== this.props.struct.id){
          getDataByModel(newProps.struct.id).then((data) => { 
@@ -53,16 +53,11 @@ class Table extends Component {
       }
    }
 
-   flatten(arr) {
-      return arr.reduce((flat, toFlatten) => {
-         return flat.concat(Array.isArray(toFlatten) ? this.flatten(toFlatten) : toFlatten);
-      }, []);
-   }
 
    lookupItemData(data){
       this.setState({origData: data});
       async.map(data, (item, cb) => {
-         async.map(this.flatten(this.state.struct.model), (modelElement, callback) => {
+         async.map(utils.flatten(this.state.struct.model), (modelElement, callback) => {
             if(modelElement.type == "FSELECT"){
                var id = item[modelElement.id];
                if(id){
@@ -103,6 +98,22 @@ class Table extends Component {
       this.props.onCreate();
    }
 
+
+   _getTd(state, rowInfo, column, instance){
+      return {
+         onClick: (e, handleOriginal) => {
+            if(this.props.onItemSelect){
+               for(var i = 0; i < this.state.data.length; i++){
+                  if(rowInfo.original["_id"].id == this.state.data[i]["_id"].id){
+                     this.props.onItemSelect(this.state.origData[i]);
+                     break;
+                  }
+               }
+            } 
+         }
+      }
+   }
+
    _renderViewer(){
       return (
       <div style={{flex:1, display: 'flex', flexDirection: 'column'}}>
@@ -116,20 +127,7 @@ class Table extends Component {
             style={{flex: 1, display: 'flex'}}
             data={this.state.data}
             columns={(this.state.struct && this.state.struct["display_keys"]) ? this.state.struct["display_keys"].map((x) => ({ accessor: x.id, Header: x.label})) : []}
-            getTdProps={(state, rowInfo, column, instance) => {
-               return {
-                  onClick: (e, handleOriginal) => {
-                     if(this.props.onItemSelect){
-                        for(var i = 0; i < this.state.data.length; i++){
-                           if(rowInfo.original["_id"].id == this.state.data[i]["_id"].id){
-                              this.props.onItemSelect(this.state.origData[i]);
-                              break;
-                           }
-                        }
-                     } 
-                  }
-               }
-            }}
+            getTdProps={this._getTd.bind(this)}
             />
          </div>
       </div>
@@ -140,8 +138,8 @@ class Table extends Component {
       return (
         <div style = {{display: 'flex', height : '100%', flex: 1, flexDirection: 'column'}}>
             {this._render()}
-            </div>
-         );
+         </div>
+      );
    }
 }
 
