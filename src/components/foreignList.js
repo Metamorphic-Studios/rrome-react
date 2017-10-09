@@ -2,7 +2,6 @@ import React, {
    Component
 }from 'react';
 
-import { getDataById } from '../utils/data';
 
 
 import { 
@@ -36,7 +35,7 @@ export default class ForeignList extends Component{
          listData : []
       });
       this.state.data.map((dat) => {
-         getDataById(dat.value).then((result) => {
+         this.state.connector.getDataById(dat.value).then((result) => {
             var employee = this.state.struct["meta-type"]["list_display"].map((e) => {
                return result[e];
             });
@@ -110,7 +109,7 @@ export default class ForeignList extends Component{
                <Modal.Title>Add item to {this.state.struct.label}</Modal.Title>
             </Modal.Header>
             <Modal.Body style={{display: 'flex', flexDirection: 'row', flex: 1}}>
-               <ForeignSelector struct={this.state.struct} style={{flex:1 }} onChange={(val) => this.setState({modalValue: val})}/> 
+               <ForeignSelector connector={this.state.connector} struct={this.state.struct} style={{flex:1 }} onChange={(val) => this.setState({modalValue: val})}/> 
             </Modal.Body>
             <Modal.Footer>
                <Button onClick={this.modalSave.bind(this)}> Ok </Button>

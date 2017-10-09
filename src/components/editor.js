@@ -35,33 +35,43 @@ export default class Editor extends Component {
       this.refreshEditor();
    }
    
-   refreshEditor(){
-      console.log('Should refresh');
+   refreshEditor(){ 
       this.setState({refresh : true});
    }
 
    onEditorRefreshFinish(){
-      console.log('Refresh finished');
       this.setState({refresh : false});
    }
 
    render(){
       if(!this.state.struct) return null;
       if(this.state.editing){
-         return (<Form refreshData={this.refreshEditor.bind(this)} struct={this.state.struct} content={this.state.selectedItem} onBack={this.onBack.bind(this)}/>);
+         return (
+            <Form  
+               connector={this.state.connector}
+               struct={this.state.struct}
+               content={this.state.selectedItem}
+               onBack={this.onBack.bind(this)}/>);
       }else{
-         return (<Table refresh={this.state.refresh} onEditorRefresh={this.onEditorRefreshFinish.bind(this)} struct={this.state.struct} onItemSelect={(item) => {
-            this.setState({
-               editing: true,
-               selectedItem: item
-            });
-         }}
-         onCreate={() => {
-            this.setState({
-               editing: true,
-               selectedItem: {}
-            });
-         }}/>);
+         return (
+            <Table
+               connector={this.state.connector}
+               refresh={this.state.refresh}
+               onEditorRefresh={this.onEditorRefreshFinish.bind(this)}
+               struct={this.state.struct}
+               onItemSelect={(item) => {
+                  this.setState({
+                     editing: true,
+                     selectedItem: item
+                  });
+               }}
+               onCreate={() => {
+                  this.setState({
+                     editing: true,
+                     selectedItem: {}
+                  });
+               }}/>
+         );
       }
    }
 }

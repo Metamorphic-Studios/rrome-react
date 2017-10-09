@@ -2,8 +2,6 @@ import React, {
    Component
 } from 'react';
 
-import { getDataByModel } from '../utils/data';
-
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 export default class ForeignSelector extends Component {
@@ -26,10 +24,10 @@ export default class ForeignSelector extends Component {
    
    componentWillMount(){
       var id = this.state.struct["meta-type"].id
-      getDataByModel(id).then((options) => {
+      this.state.connector.getDataByModel(id).then((options) => {
          var opt = options.map((x) => {
             return {
-               value : x._id.id, 
+               value : x._id, 
                label: this.state.struct["meta-type"]["display_keys"].map((y) => {
                   return x[y];
                }).join(" ") 

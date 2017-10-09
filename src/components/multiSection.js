@@ -23,7 +23,7 @@ class MultiSection extends Component {
 
    _renderSections(){
       return this.state.sections.map((x) => {
-         return(<Section inMulti = {true} struct = {x} onChange={this.props.onChange.bind(this)}/>);
+         return(<Section connector={this.state.connector} inMulti = {true} struct = {x} onChange={this.props.onChange.bind(this)}/>);
       });  
    }
 

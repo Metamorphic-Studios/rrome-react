@@ -15,6 +15,7 @@ import List from './list';
 import Section from './section';
 import MultiSection from './multiSection';
 import '../../styles/style.css';
+var utils = require('../utils');
 
 class Form extends Component {
    constructor(props){
@@ -44,26 +45,33 @@ class Form extends Component {
    }
 
    deleteForm(id){
-      return deleteDataById(id);
+      //Delete 
    }
 
    saveForm(form){
-      if(this.state.content._id){
+
+      this.setState({
+         beenSaved: true
+      });
+      if(!this.state.content._id){
+         this.state.connector.createDataByModel(this.state.struct.id, form).then(() => {
+            this.props.onBack(); 
+         });
+      }else{
+         this.state.connector.saveDataById(this.state.content._id, form).then(() => {
+ 
+         });
+      }
+   /*   if(this.state.content._id){
          return saveDataById(this.state.content._id.id, form);
       }else{
          return createDataByModel(this.state.struct.id, form);
       }
       this.setState({
          beenSaved: true
-      });
+      }); */
     }
 
-  isArray(array){
-      for(var i=0; i<array.length; i++){
-         if(Array.isArray(array[i])) return true;  
-      }
-      return false;
-  }
 
    
    mapStruct(struct, content){
@@ -125,15 +133,35 @@ class Form extends Component {
 
   _render(){
       return this.state.struct.model.map((x) => {
-         if(this.isArray(x)){
-           return(<MultiSection sections = {this.mapStructs(x, this.state.content)} onChange={this.handleChange.bind(this)}/>);
+         if(utils.isArray(x)){
+           return(<MultiSection sections = {this.mapStructs(x, this.state.content)} onChange={this.handleChange.bind(this)} connector={this.state.connector}/>);
          }
          else{
-            return(<Section inMulti = {false} struct = {this.mapStruct(x, this.state.content)} onChange={this.handleChange.bind(this)}/>);
+            return(<Section inMulti = {false} struct = {this.mapStruct(x, this.state.content)} onChange={this.handleChange.bind(this)} connector={this.state.connector}/>);
          }
       }); 
   }
 
+   onDangerClick(){
+      if(this.state.content._id){
+         this.state.connector.deleteDataById(this.state.content._id).then(() => {
+            this.props.onBack(); 
+         });
+      }
+      else{
+         if(this.state.beenSaved){
+            this.props.onBack();
+         }else{
+            this.setState({
+              showWarningModal: true
+            });
+         }
+      }
+   }
+
+   onPrimaryClick(){
+      this.saveForm(this.state.content);
+   }
  
    render(){
       return (
@@ -147,28 +175,8 @@ class Form extends Component {
         </div>
         <div className = "formFooter">
             {this.renderWarning()}
-            <Button className = "btn btn-footer btn-danger" onClick={() => {   
-               if(this.state.content._id){
-                  this.deleteForm(this.state.content._id.id).then((resp) => {
-                     this.props.onBack()
-                  }); 
-               }
-               else{
-                  console.log(this.state.beenSaved);
-                  if(this.state.beenSaved){
-                     this.props.onBack();
-                  }else{
-                     this.setState({
-                           showWarningModal: true
-                     });
-                  }
-               }
-            }}>{(this.state.content._id) ? 'Delete' : 'Cancel'}</Button>
-            <Button  className = "btn btn-footer btn-primary" onClick={() => {
-               this.saveForm(this.state.content).then((resp) => {
-                 this.props.onBack() 
-               });
-            }}>{(this.state.content._id) ? 'Save' : 'Create'}</Button>
+            <Button className = "btn btn-footer btn-danger" onClick={this.onDangerClick.bind(this)}>{(this.state.content._id) ? 'Delete' : 'Cancel'}</Button>
+            <Button  className = "btn btn-footer btn-primary" onClick={this.onPrimaryClick.bind(this)}>{(this.state.content._id) ? 'Save' : 'Create'}</Button>
          </div>
       </div>
       );
