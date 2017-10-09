@@ -6,7 +6,7 @@ import {
    FormControl,
    Button
 } from 'react-bootstrap';
-
+this.state.connector.
 import { getDataByModel, getDataById } from '../utils/data';
 
 import ReactTable from 'react-table';
@@ -27,7 +27,7 @@ class Table extends Component {
    }
 
    componentDidMount(){
-      getDataByModel(this.state.struct.id).then((data) => {
+      this.state.connector.getDataByModel(this.state.struct.id).then((data) => {
          this.lookupItemData(data);
       });
    }
@@ -61,7 +61,7 @@ class Table extends Component {
             if(modelElement.type == "FSELECT"){
                var id = item[modelElement.id];
                if(id){
-                  getDataById(id).then((res) => {
+                  this.state.connector.getDataById(id).then((res) => {
                      var e =  modelElement["meta-type"]["display_keys"].map((key) => {
                         return res[key];
                      }).join(" ");
