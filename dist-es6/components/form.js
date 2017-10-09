@@ -70,9 +70,7 @@ var Form = function (_Component) {
                _this2.props.onBack();
             });
          } else {
-            this.state.connector.saveDataById(this.state.content._id, form).then(function () {
-               _this2.props.onBack();
-            });
+            this.state.connector.saveDataById(this.state.content._id, form).then(function () {});
          }
          /*   if(this.state.content._id){
                return saveDataById(this.state.content._id.id, form);
