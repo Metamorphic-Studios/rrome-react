@@ -48,6 +48,7 @@ export default class Editor extends Component {
       if(this.state.editing){
          return (
             <Form  
+               connector={this.state.connector}
                struct={this.state.struct}
                content={this.state.selectedItem}
                onSave={(data) => {
@@ -60,6 +61,7 @@ export default class Editor extends Component {
       }else{
          return (
             <Table
+               connector={this.state.connector}
                refresh={this.state.refresh}
                onEditorRefresh={this.onEditorRefreshFinish.bind(this)}
                struct={this.state.struct}

@@ -66,6 +66,7 @@ var Editor = function (_Component) {
          if (!this.state.struct) return null;
          if (this.state.editing) {
             return React.createElement(Form, {
+               connector: this.state.connector,
                struct: this.state.struct,
                content: this.state.selectedItem,
                onSave: function onSave(data) {
@@ -77,6 +78,7 @@ var Editor = function (_Component) {
                onBack: this.onBack.bind(this) });
          } else {
             return React.createElement(Table, {
+               connector: this.state.connector,
                refresh: this.state.refresh,
                onEditorRefresh: this.onEditorRefreshFinish.bind(this),
                struct: this.state.struct,
