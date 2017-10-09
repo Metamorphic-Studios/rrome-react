@@ -5,25 +5,25 @@ React bindings for rrome
 ### Components
 ---
 
-- Menu
 - Editor
+- Form
 - Table
 
 ### Installation
 ---
 
 ```javascript
-cd rrome_react; npm link
-
-cd working_dir; npm link rrome-react;
-
+npm install --save https://github.com/Metamorphic-Studios/rrome-react
 ```
 
 ### Usage
 ---
 
 ```javascript
-import { Menu, Editor, Table } from 'rrome-react';
+import { Editor, Form, Table } from 'rrome-react';
 
+<Editor
+   struct={}
+   />
 
 ```
