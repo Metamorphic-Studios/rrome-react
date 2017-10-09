@@ -12,9 +12,14 @@ export default class FormCreator extends Component{
       super(props);
       this.state({
          ...props,
-         addedSections: [], 
-         showModal: false
+         addedSections: [],
+         showModal: false,
+         title: ""
       });
+   }
+   
+   exportVals(){
+   
    }
 
    componentWillReceiveProps(newProps){
@@ -25,8 +30,6 @@ export default class FormCreator extends Component{
       }
    }
    
-   
-
    addSection(sect){
       var updatedSections = this.state.addedSections;
       updatedSections.push(sect);
@@ -35,7 +38,7 @@ export default class FormCreator extends Component{
       });
    }
 
-   _toggleModal(){
+   toggleModal(){
       this.setState({
          showModal : !this.state.showModal
       });
@@ -50,9 +53,13 @@ export default class FormCreator extends Component{
 
    _renderForm(){
       return(
-         {
-            if(addedSections){
-               this._renderSections();
+        {
+           if(addedSections){
+               return(
+                  {this._renderSections}      
+               );
+            }else{
+         
             }
          }      
       );   
@@ -61,7 +68,9 @@ export default class FormCreator extends Component{
    render(){
       return(
          <div>
-            <h1>New form template</h1>
+            {if(this.state.title == ""){<h1>New form template</h1>}
+            else{<h1>{this.state.title}</h1>}
+            }
             {this._renderForm}
          </div>      
       );
