@@ -6,8 +6,6 @@ import {
    FormControl,
    Button
 } from 'react-bootstrap';
-this.state.connector.
-import { getDataByModel, getDataById } from '../utils/data';
 
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
