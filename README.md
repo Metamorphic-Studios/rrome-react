@@ -1,26 +1,27 @@
-## Rrome React
+# Rrome React
 
 React bindings for rrome
 
-### Components
+## Components
 
 - Editor
 - Form
 - Table
 
-### Installation
+## Installation
 
 ```javascript
 npm install --save https://github.com/Metamorphic-Studios/rrome-react
 ```
 
-### Usage
+## Usage
 
 ```javascript
-import { Editor, Form, Table } from 'rrome-react';
+import { Editor } from 'rrome-react';
 
 <Editor
    struct={}
+   connector={}
    />
 
 ```
