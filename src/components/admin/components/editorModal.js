@@ -1,8 +1,5 @@
-import React, {
-   Component,
-   Modal
-} from 'react'
-
+import React, { Component } from 'react';
+import { Modal } from 'react-bootstrap';
 export default class EditorModal extends Component{
    
    constructor(props){
@@ -34,9 +31,6 @@ export default class EditorModal extends Component{
             /> 
          );              
       }else{
-         return (
-         
-         );
       }
    }
 
@@ -52,7 +46,9 @@ export default class EditorModal extends Component{
 
    render(){
       return (
-         {this._renderModal()}
+         <div>
+            {this._renderModal()}
+         </div>
       );
    }
 }

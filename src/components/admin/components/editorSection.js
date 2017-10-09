@@ -1,12 +1,12 @@
 import React, {
    Component
-} from 'react'
+} from 'react';
 
 import {
    Button
-} from 'react-bootstrap'
+} from 'react-bootstrap';
 
-export default EditorSection extends Component {
+export default class EditorSection extends Component {
    
    constructor(props){
       super(props);
@@ -56,9 +56,8 @@ export default EditorSection extends Component {
    render(){
       return(
          <div style = {{display: 'flex', flex: 1}}> 
-            {this._renderItems}
-         <EditorModal show: {this.state.showModal} toggleModal: {this.toggleModal.bind(this)} />
-         <Button bsStyle="primary" onClick ={() =>{this.toggleModal()}}>Add field</Button>
+            <EditorModal show={this.state.showModal} toggleModal={this.toggleModal.bind(this)} />
+            <Button bsStyle="primary" onClick={() =>{this.toggleModal()}}>Add field</Button>
          </div>      
       );      
    }

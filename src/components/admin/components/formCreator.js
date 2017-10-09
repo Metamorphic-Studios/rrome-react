@@ -52,26 +52,26 @@ export default class FormCreator extends Component{
    }
 
    _renderForm(){
-      return(
-        {
-           if(addedSections){
-               return(
-                  {this._renderSections}      
-               );
-            }else{
+      if(addedSections){
+
+      }else{
          
-            }
-         }      
-      );   
+      }
+   }
+
+   _renderTitle(){
+      if(this.state.title == ""){
+         return(<h1>New form template</h1>);
+      }else{
+         return(<h1>{this.state.title}</h1>);
+      }
    }
 
    render(){
       return(
          <div>
-            {if(this.state.title == ""){<h1>New form template</h1>}
-            else{<h1>{this.state.title}</h1>}
-            }
-            {this._renderForm}
+            {this._renderTitle()}
+            {this._renderForm()}
          </div>      
       );
    }
