@@ -66,13 +66,11 @@ var Editor = function (_Component) {
    }, {
       key: 'refreshEditor',
       value: function refreshEditor() {
-         console.log('Should refresh');
          this.setState({ refresh: true });
       }
    }, {
       key: 'onEditorRefreshFinish',
       value: function onEditorRefreshFinish() {
-         console.log('Refresh finished');
          this.setState({ refresh: false });
       }
    }, {
@@ -82,9 +80,18 @@ var Editor = function (_Component) {
 
          if (!this.state.struct) return null;
          if (this.state.editing) {
-            return _react2.default.createElement(_form2.default, { refreshData: this.refreshEditor.bind(this), struct: this.state.struct, content: this.state.selectedItem, onBack: this.onBack.bind(this) });
+            return _react2.default.createElement(_form2.default, {
+               connector: this.state.connector,
+               struct: this.state.struct,
+               content: this.state.selectedItem,
+               onBack: this.onBack.bind(this) });
          } else {
-            return _react2.default.createElement(_table2.default, { refresh: this.state.refresh, onEditorRefresh: this.onEditorRefreshFinish.bind(this), struct: this.state.struct, onItemSelect: function onItemSelect(item) {
+            return _react2.default.createElement(_table2.default, {
+               connector: this.state.connector,
+               refresh: this.state.refresh,
+               onEditorRefresh: this.onEditorRefreshFinish.bind(this),
+               struct: this.state.struct,
+               onItemSelect: function onItemSelect(item) {
                   _this2.setState({
                      editing: true,
                      selectedItem: item

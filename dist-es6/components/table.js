@@ -123,7 +123,7 @@ var Table = function (_Component) {
             onClick: function onClick(e, handleOriginal) {
                if (_this5.props.onItemSelect) {
                   for (var i = 0; i < _this5.state.data.length; i++) {
-                     if (rowInfo.original["_id"].id == _this5.state.data[i]["_id"].id) {
+                     if (rowInfo.original["_id"] == _this5.state.data[i]["_id"]) {
                         _this5.props.onItemSelect(_this5.state.origData[i]);
                         break;
                      }

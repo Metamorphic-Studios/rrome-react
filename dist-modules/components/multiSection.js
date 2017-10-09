@@ -49,7 +49,7 @@ var MultiSection = function (_Component) {
          var _this2 = this;
 
          return this.state.sections.map(function (x) {
-            return _react2.default.createElement(_section2.default, { inMulti: true, struct: x, onChange: _this2.props.onChange.bind(_this2) });
+            return _react2.default.createElement(_section2.default, { connector: _this2.state.connector, inMulti: true, struct: x, onChange: _this2.props.onChange.bind(_this2) });
          });
       }
    }, {

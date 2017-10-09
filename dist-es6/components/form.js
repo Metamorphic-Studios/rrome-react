@@ -60,11 +60,20 @@ var Form = function (_Component) {
    }, {
       key: 'saveForm',
       value: function saveForm(form) {
+         var _this2 = this;
 
          this.setState({
             beenSaved: true
          });
-         this.state.connector.createDataByModel(this.state.struct.id, form);
+         if (!this.state.content._id) {
+            this.state.connector.createDataByModel(this.state.struct.id, form).then(function () {
+               _this2.props.onBack();
+            });
+         } else {
+            this.state.connector.saveDataById(this.state.content._id, form).then(function () {
+               _this2.props.onBack();
+            });
+         }
          /*   if(this.state.content._id){
                return saveDataById(this.state.content._id.id, form);
             }else{
@@ -86,10 +95,10 @@ var Form = function (_Component) {
    }, {
       key: 'mapStructs',
       value: function mapStructs(structs, content) {
-         var _this2 = this;
+         var _this3 = this;
 
          return structs.map(function (x) {
-            return _this2.mapStruct(x, content);
+            return _this3.mapStruct(x, content);
          });
       }
    }, {
@@ -114,13 +123,13 @@ var Form = function (_Component) {
    }, {
       key: 'saveWarningModal',
       value: function saveWarningModal() {
-         var _this3 = this;
+         var _this4 = this;
 
          this.setState({
             showWarningModal: false
          });
          this.saveForm(this.state.content).then(function (res) {
-            _this3.props.onBack();
+            _this4.props.onBack();
          });
       }
    }, {
@@ -141,23 +150,25 @@ var Form = function (_Component) {
    }, {
       key: '_render',
       value: function _render() {
-         var _this4 = this;
+         var _this5 = this;
 
          return this.state.struct.model.map(function (x) {
             if (utils.isArray(x)) {
-               return React.createElement(MultiSection, { sections: _this4.mapStructs(x, _this4.state.content), onChange: _this4.handleChange.bind(_this4) });
+               return React.createElement(MultiSection, { sections: _this5.mapStructs(x, _this5.state.content), onChange: _this5.handleChange.bind(_this5), connector: _this5.state.connector });
             } else {
-               return React.createElement(Section, { inMulti: false, struct: _this4.mapStruct(x, _this4.state.content), onChange: _this4.handleChange.bind(_this4) });
+               return React.createElement(Section, { inMulti: false, struct: _this5.mapStruct(x, _this5.state.content), onChange: _this5.handleChange.bind(_this5), connector: _this5.state.connector });
             }
          });
       }
    }, {
       key: 'onDangerClick',
       value: function onDangerClick() {
+         var _this6 = this;
+
          if (this.state.content._id) {
-            if (this.props.onDelete) {
-               this.props.onDelete(this.state.content._id.id);
-            }
+            this.state.connector.deleteDataById(this.state.content._id).then(function () {
+               _this6.props.onBack();
+            });
          } else {
             if (this.state.beenSaved) {
                this.props.onBack();
@@ -171,9 +182,7 @@ var Form = function (_Component) {
    }, {
       key: 'onPrimaryClick',
       value: function onPrimaryClick() {
-         if (this.props.onSave) {
-            this.props.onSave(this.state.content);
-         }
+         this.saveForm(this.state.content);
       }
    }, {
       key: 'render',

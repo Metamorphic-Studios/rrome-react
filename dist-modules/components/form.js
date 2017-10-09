@@ -16,6 +16,10 @@ var _reactBootstrap = require('react-bootstrap');
 
 var _data = require('../utils/data');
 
+var _warningModal = require('./warningModal.js');
+
+var _warningModal2 = _interopRequireDefault(_warningModal);
+
 var _chevronLeft = require('react-icons/lib/fa/chevron-left');
 
 var _chevronLeft2 = _interopRequireDefault(_chevronLeft);
@@ -46,6 +50,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var utils = require('../utils');
+
 var Form = function (_Component) {
    _inherits(Form, _Component);
 
@@ -56,7 +62,10 @@ var Form = function (_Component) {
 
       _this.state = _extends({
          content: {}
-      }, props);
+      }, props, {
+         beenSaved: true,
+         showWarningModal: false
+      });
       return _this;
    }
 
@@ -76,25 +85,33 @@ var Form = function (_Component) {
    }, {
       key: 'deleteForm',
       value: function deleteForm(id) {
-         return (0, _data.deleteDataById)(id);
+         //Delete 
       }
    }, {
       key: 'saveForm',
       value: function saveForm(form) {
+         var _this2 = this;
 
-         if (this.state.content._id) {
-            return (0, _data.saveDataById)(this.state.content._id.id, form);
+         this.setState({
+            beenSaved: true
+         });
+         if (!this.state.content._id) {
+            this.state.connector.createDataByModel(this.state.struct.id, form).then(function () {
+               _this2.props.onBack();
+            });
          } else {
-            return (0, _data.createDataByModel)(this.state.struct.id, form);
+            this.state.connector.saveDataById(this.state.content._id, form).then(function () {
+               _this2.props.onBack();
+            });
          }
-      }
-   }, {
-      key: 'isArray',
-      value: function isArray(array) {
-         for (var i = 0; i < array.length; i++) {
-            if (Array.isArray(array[i])) return true;
-         }
-         return false;
+         /*   if(this.state.content._id){
+               return saveDataById(this.state.content._id.id, form);
+            }else{
+               return createDataByModel(this.state.struct.id, form);
+            }
+            this.setState({
+               beenSaved: true
+            }); */
       }
    }, {
       key: 'mapStruct',
@@ -108,10 +125,10 @@ var Form = function (_Component) {
    }, {
       key: 'mapStructs',
       value: function mapStructs(structs, content) {
-         var _this2 = this;
+         var _this3 = this;
 
          return structs.map(function (x) {
-            return _this2.mapStruct(x, content);
+            return _this3.mapStruct(x, content);
          });
       }
    }, {
@@ -120,31 +137,89 @@ var Form = function (_Component) {
          var content = _extends({}, this.state.content, c);
 
          this.setState({
-            content: content
+            content: content,
+            beenSaved: false
          });
-         console.log(content);
+      }
+   }, {
+      key: 'renderWarning',
+      value: function renderWarning() {
+         return _react2.default.createElement(_warningModal2.default, {
+            saveWarningModal: this.saveWarningModal.bind(this),
+            quitWarningModal: this.quitWarningModal.bind(this),
+            leaveWarningModal: this.leaveWarningModal.bind(this),
+            showModal: this.state.showWarningModal });
+      }
+   }, {
+      key: 'saveWarningModal',
+      value: function saveWarningModal() {
+         var _this4 = this;
+
+         this.setState({
+            showWarningModal: false
+         });
+         this.saveForm(this.state.content).then(function (res) {
+            _this4.props.onBack();
+         });
+      }
+   }, {
+      key: 'leaveWarningModal',
+      value: function leaveWarningModal() {
+         this.setState({
+            showWarningModal: false
+         });
+      }
+   }, {
+      key: 'quitWarningModal',
+      value: function quitWarningModal() {
+         this.setState({
+            showWarningModal: false
+         });
+         this.props.onBack();
       }
    }, {
       key: '_render',
       value: function _render() {
-         var _this3 = this;
+         var _this5 = this;
 
          return this.state.struct.model.map(function (x) {
-            if (_this3.isArray(x)) {
-               return _react2.default.createElement(_multiSection2.default, { sections: _this3.mapStructs(x, _this3.state.content), onChange: _this3.handleChange.bind(_this3) });
+            if (utils.isArray(x)) {
+               return _react2.default.createElement(_multiSection2.default, { sections: _this5.mapStructs(x, _this5.state.content), onChange: _this5.handleChange.bind(_this5), connector: _this5.state.connector });
             } else {
-               return _react2.default.createElement(_section2.default, { inMulti: false, struct: _this3.mapStruct(x, _this3.state.content), onChange: _this3.handleChange.bind(_this3) });
+               return _react2.default.createElement(_section2.default, { inMulti: false, struct: _this5.mapStruct(x, _this5.state.content), onChange: _this5.handleChange.bind(_this5), connector: _this5.state.connector });
             }
          });
       }
    }, {
+      key: 'onDangerClick',
+      value: function onDangerClick() {
+         var _this6 = this;
+
+         if (this.state.content._id) {
+            this.state.connector.deleteDataById(this.state.content._id).then(function () {
+               _this6.props.onBack();
+            });
+         } else {
+            if (this.state.beenSaved) {
+               this.props.onBack();
+            } else {
+               this.setState({
+                  showWarningModal: true
+               });
+            }
+         }
+      }
+   }, {
+      key: 'onPrimaryClick',
+      value: function onPrimaryClick() {
+         this.saveForm(this.state.content);
+      }
+   }, {
       key: 'render',
       value: function render() {
-         var _this4 = this;
-
          return _react2.default.createElement(
             'div',
-            { style: { display: 'flex', flex: 1, flexDirection: 'column' } },
+            { style: { display: 'flex', flex: 1, height: '100%', flexDirection: 'column' } },
             _react2.default.createElement(
                'div',
                { className: 'formHeader' },
@@ -159,32 +234,21 @@ var Form = function (_Component) {
             ),
             _react2.default.createElement(
                'div',
-               { className: 'formBody', style: { display: 'flex', flex: 1, flexDirection: 'column', alignItems: 'center' } },
+               { className: 'formBody', style: { display: 'flex', flex: 1, flexDirection: 'column', height: '100%', alignItems: 'center' } },
                this._render()
             ),
             _react2.default.createElement(
                'div',
                { className: 'formFooter' },
+               this.renderWarning(),
                _react2.default.createElement(
                   _reactBootstrap.Button,
-                  { className: 'btn btn-footer btn-danger', onClick: function onClick() {
-                        if (_this4.state.content._id) {
-                           _this4.deleteForm(_this4.state.content._id.id).then(function (resp) {
-                              _this4.props.onBack();
-                           });
-                        } else {
-                           _this4.props.onBack();
-                        }
-                     } },
+                  { className: 'btn btn-footer btn-danger', onClick: this.onDangerClick.bind(this) },
                   this.state.content._id ? 'Delete' : 'Cancel'
                ),
                _react2.default.createElement(
                   _reactBootstrap.Button,
-                  { className: 'btn btn-footer btn-primary', onClick: function onClick() {
-                        _this4.saveForm(_this4.state.content).then(function (resp) {
-                           _this4.props.onBack();
-                        });
-                     } },
+                  { className: 'btn btn-footer btn-primary', onClick: this.onPrimaryClick.bind(this) },
                   this.state.content._id ? 'Save' : 'Create'
                )
             )

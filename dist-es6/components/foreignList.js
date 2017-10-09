@@ -10,8 +10,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 import React, { Component } from 'react';
 
-import { getDataById } from '../utils/data';
-
 import { Button, ListGroup, ListGroupItem, Modal, Glyphicon } from 'react-bootstrap';
 import ForeignSelector from './foreignSelector';
 var Add = require('react-icons/lib/fa/plus');
@@ -47,7 +45,7 @@ var ForeignList = function (_Component) {
             listData: []
          });
          this.state.data.map(function (dat) {
-            getDataById(dat.value).then(function (result) {
+            _this2.state.connector.getDataById(dat.value).then(function (result) {
                var employee = _this2.state.struct["meta-type"]["list_display"].map(function (e) {
                   return result[e];
                });
@@ -150,7 +148,7 @@ var ForeignList = function (_Component) {
             React.createElement(
                Modal.Body,
                { style: { display: 'flex', flexDirection: 'row', flex: 1 } },
-               React.createElement(ForeignSelector, { struct: this.state.struct, style: { flex: 1 }, onChange: function onChange(val) {
+               React.createElement(ForeignSelector, { connector: this.state.connector, struct: this.state.struct, style: { flex: 1 }, onChange: function onChange(val) {
                      return _this4.setState({ modalValue: val });
                   } })
             ),

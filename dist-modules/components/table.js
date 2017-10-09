@@ -14,8 +14,6 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactBootstrap = require('react-bootstrap');
 
-var _data = require('../utils/data');
-
 var _reactTable = require('react-table');
 
 var _reactTable2 = _interopRequireDefault(_reactTable);
@@ -35,6 +33,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var async = require('async');
+var utils = require('../utils');
 
 var Table = function (_Component) {
    _inherits(Table, _Component);
@@ -56,7 +55,7 @@ var Table = function (_Component) {
       value: function componentDidMount() {
          var _this2 = this;
 
-         (0, _data.getDataByModel)(this.state.struct.id).then(function (data) {
+         this.state.connector.getDataByModel(this.state.struct.id).then(function (data) {
             _this2.lookupItemData(data);
          });
       }
@@ -69,42 +68,31 @@ var Table = function (_Component) {
             this.setState(_extends({}, newProps));
          }
 
-         console.log('Table Refresh:', newProps.refresh);
-
          if (newProps.struct.id !== this.props.struct.id) {
-            (0, _data.getDataByModel)(newProps.struct.id).then(function (data) {
+            getDataByModel(newProps.struct.id).then(function (data) {
                _this3.lookupItemData(data);
             });
          }
 
          if (newProps.refresh == true) {
-            (0, _data.getDataByModel)(this.state.struct.id).then(function (data) {
+            getDataByModel(this.state.struct.id).then(function (data) {
                _this3.lookupItemData(data);
             });
             newProps.onEditorRefresh();
          }
       }
    }, {
-      key: 'flatten',
-      value: function flatten(arr) {
-         var _this4 = this;
-
-         return arr.reduce(function (flat, toFlatten) {
-            return flat.concat(Array.isArray(toFlatten) ? _this4.flatten(toFlatten) : toFlatten);
-         }, []);
-      }
-   }, {
       key: 'lookupItemData',
       value: function lookupItemData(data) {
-         var _this5 = this;
+         var _this4 = this;
 
          this.setState({ origData: data });
          async.map(data, function (item, cb) {
-            async.map(_this5.flatten(_this5.state.struct.model), function (modelElement, callback) {
+            async.map(utils.flatten(_this4.state.struct.model), function (modelElement, callback) {
                if (modelElement.type == "FSELECT") {
                   var id = item[modelElement.id];
                   if (id) {
-                     (0, _data.getDataById)(id).then(function (res) {
+                     _this4.state.connector.getDataById(id).then(function (res) {
                         var e = modelElement["meta-type"]["display_keys"].map(function (key) {
                            return res[key];
                         }).join(" ");
@@ -128,7 +116,7 @@ var Table = function (_Component) {
             });
          }, function (err, results) {
             if (!err) {
-               _this5.setState({ data: results });
+               _this4.setState({ data: results });
             }
          });
       }
@@ -143,10 +131,26 @@ var Table = function (_Component) {
          this.props.onCreate();
       }
    }, {
+      key: '_getTd',
+      value: function _getTd(state, rowInfo, column, instance) {
+         var _this5 = this;
+
+         return {
+            onClick: function onClick(e, handleOriginal) {
+               if (_this5.props.onItemSelect) {
+                  for (var i = 0; i < _this5.state.data.length; i++) {
+                     if (rowInfo.original["_id"] == _this5.state.data[i]["_id"]) {
+                        _this5.props.onItemSelect(_this5.state.origData[i]);
+                        break;
+                     }
+                  }
+               }
+            }
+         };
+      }
+   }, {
       key: '_renderViewer',
       value: function _renderViewer() {
-         var _this6 = this;
-
          return _react2.default.createElement(
             'div',
             { style: { flex: 1, display: 'flex', flexDirection: 'column' } },
@@ -173,20 +177,7 @@ var Table = function (_Component) {
                   columns: this.state.struct && this.state.struct["display_keys"] ? this.state.struct["display_keys"].map(function (x) {
                      return { accessor: x.id, Header: x.label };
                   }) : [],
-                  getTdProps: function getTdProps(state, rowInfo, column, instance) {
-                     return {
-                        onClick: function onClick(e, handleOriginal) {
-                           if (_this6.props.onItemSelect) {
-                              for (var i = 0; i < _this6.state.data.length; i++) {
-                                 if (rowInfo.original["_id"].id == _this6.state.data[i]["_id"].id) {
-                                    _this6.props.onItemSelect(_this6.state.origData[i]);
-                                    break;
-                                 }
-                              }
-                           }
-                        }
-                     };
-                  }
+                  getTdProps: this._getTd.bind(this)
                })
             )
          );
@@ -196,7 +187,7 @@ var Table = function (_Component) {
       value: function render() {
          return _react2.default.createElement(
             'div',
-            { style: { display: 'flex', flex: 1, flexDirection: 'column' } },
+            { style: { display: 'flex', height: '100%', flex: 1, flexDirection: 'column' } },
             this._render()
          );
       }

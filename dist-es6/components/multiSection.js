@@ -37,7 +37,7 @@ var MultiSection = function (_Component) {
          var _this2 = this;
 
          return this.state.sections.map(function (x) {
-            return React.createElement(Section, { inMulti: true, struct: x, onChange: _this2.props.onChange.bind(_this2) });
+            return React.createElement(Section, { connector: _this2.state.connector, inMulti: true, struct: x, onChange: _this2.props.onChange.bind(_this2) });
          });
       }
    }, {

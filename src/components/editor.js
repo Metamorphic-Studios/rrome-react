@@ -51,13 +51,6 @@ export default class Editor extends Component {
                connector={this.state.connector}
                struct={this.state.struct}
                content={this.state.selectedItem}
-               onSave={(data) => {
-                  this.state.connector.createDataByModel(this.state.struct.id, data);
-                  console.log("SAVE", data);
-               }}
-               onDelete={(id) => {
-                  console.log("DELETE", id);
-               }}
                onBack={this.onBack.bind(this)}/>);
       }else{
          return (

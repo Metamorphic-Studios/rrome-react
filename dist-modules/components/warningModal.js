@@ -14,10 +14,6 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactBootstrap = require('react-bootstrap');
 
-var _items = require('./items');
-
-var _items2 = _interopRequireDefault(_items);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -26,80 +22,97 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var FormModal = function (_Component) {
-   _inherits(FormModal, _Component);
+//a simple warning true/false returning modal for if you havnt saved something
+var WarnModal = function (_Component) {
+   _inherits(WarnModal, _Component);
 
-   function FormModal(props) {
-      _classCallCheck(this, FormModal);
+   function WarnModal(props) {
+      _classCallCheck(this, WarnModal);
 
-      var _this = _possibleConstructorReturn(this, (FormModal.__proto__ || Object.getPrototypeOf(FormModal)).call(this, props));
+      var _this = _possibleConstructorReturn(this, (WarnModal.__proto__ || Object.getPrototypeOf(WarnModal)).call(this, props));
 
+      console.log('modal created');
       _this.state = _extends({}, props);
       return _this;
    }
 
-   _createClass(FormModal, [{
+   _createClass(WarnModal, [{
       key: 'componentWillReceiveProps',
       value: function componentWillReceiveProps(newProps) {
-         if (this.props !== newProps) {
+         if (this.state.props !== newProps) {
+            console.log('props changing');
             this.setState(_extends({}, newProps));
          }
       }
    }, {
-      key: 'renderFields',
-      value: function renderFields() {
-         return this.state.struct.map(function (x) {
-            return _react2.default.createElement(
-               'div',
-               null,
-               _react2.default.createElement(
-                  _reactBootstrap.Label,
-                  null,
-                  x
-               ),
-               _react2.default.createElement(_items2.default, { type: x, placeholder: 'Enter' + x })
-            );
-         });
+      key: 'quit',
+      value: function quit() {
+         console.log('modal quit');
+         this.props.quitWarningModal();
+      }
+   }, {
+      key: 'saveQuit',
+      value: function saveQuit() {
+         console.log('modal savequit');
+         this.props.saveWarningModal();
+      }
+   }, {
+      key: 'goBack',
+      value: function goBack() {
+         console.log('modal goback');
+         this.props.leaveWarningModal();
       }
    }, {
       key: 'render',
       value: function render() {
+         var _this2 = this;
+
          return _react2.default.createElement(
-            _reactBootstrap.Modal,
-            { show: this.state.show },
+            'div',
+            null,
             _react2.default.createElement(
-               _reactBootstrap.Modal.Header,
-               null,
+               _reactBootstrap.Modal,
+               { show: this.state.showModal },
                _react2.default.createElement(
-                  _reactBootstrap.Modal.Title,
+                  _reactBootstrap.Modal.Header,
                   null,
-                  'hold'
-               )
-            ),
-            _react2.default.createElement(
-               _reactBootstrap.Modal.Body,
-               null,
-               this.renderFields()
-            ),
-            _react2.default.createElement(
-               _reactBootstrap.Modal.Footer,
-               null,
-               _react2.default.createElement(
-                  _reactBootstrap.Button,
-                  null,
-                  ' Save '
+                  _react2.default.createElement(
+                     _reactBootstrap.Modal.Title,
+                     null,
+                     'Unsaved changes! Are you sure you want to quit?'
+                  )
                ),
                _react2.default.createElement(
-                  _reactBootstrap.Button,
-                  { onClick: this.state.onHide },
-                  'Close'
+                  _reactBootstrap.Modal.Body,
+                  { style: { display: 'flex', flexDirection: 'row', flexWrap: 'wrap' } },
+                  _react2.default.createElement(
+                     _reactBootstrap.Button,
+                     { onClick: function onClick() {
+                           _this2.goBack();
+                        } },
+                     'No'
+                  ),
+                  _react2.default.createElement(
+                     _reactBootstrap.Button,
+                     { onClick: function onClick() {
+                           _this2.quit();
+                        } },
+                     'Yes'
+                  ),
+                  _react2.default.createElement(
+                     _reactBootstrap.Button,
+                     { onClick: function onClick() {
+                           _this2.saveQuit();
+                        } },
+                     'Save and quit'
+                  )
                )
             )
          );
       }
    }]);
 
-   return FormModal;
+   return WarnModal;
 }(_react.Component);
 
-exports.default = FormModal;
+exports.default = WarnModal;

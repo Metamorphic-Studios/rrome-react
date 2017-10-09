@@ -71,11 +71,11 @@ var Section = function (_Component) {
                         _this2.mapChange(x.id, evt);
                      } });
                case "FSELECT":
-                  return React.createElement(ForeignSelector, { struct: x, onChange: function onChange(evt) {
+                  return React.createElement(ForeignSelector, { connector: _this2.state.connector, struct: x, onChange: function onChange(evt) {
                         return _this2.mapChange(x.id, evt.value);
                      }, value: x.value });
                case "FLIST":
-                  return React.createElement(ForeignList, { struct: x, onChange: function onChange(evt) {
+                  return React.createElement(ForeignList, { connector: _this2.state.connector, struct: x, onChange: function onChange(evt) {
                         return _this2.mapChange(x.id, evt);
                      }, value: x.value });
                default:

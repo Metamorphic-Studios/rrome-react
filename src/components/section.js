@@ -59,9 +59,9 @@ class Section extends Component {
                      this.mapChange(x.id, evt)
                   }}/>);
                case "FSELECT":
-                  return(<ForeignSelector struct = {x} onChange={(evt) => this.mapChange(x.id, evt.value)} value={x.value} />);
+                  return(<ForeignSelector connector={this.state.connector} struct = {x} onChange={(evt) => this.mapChange(x.id, evt.value)} value={x.value} />);
                case "FLIST":
-                  return (<ForeignList struct = {x} onChange={(evt) => this.mapChange(x.id, evt)} value={x.value} />);
+                  return (<ForeignList connector={this.state.connector} struct = {x} onChange={(evt) => this.mapChange(x.id, evt)} value={x.value} />);
                default:
                   return(<Input type = {x.type} placeholder={x.label} onChange={(evt) => { this.mapChange(x.id, evt) }} value={x.value} />);
             }

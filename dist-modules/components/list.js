@@ -138,7 +138,7 @@ var List = function (_Component) {
             ),
             _react2.default.createElement(
                _reactBootstrap.Modal.Body,
-               { style: { display: 'flex', flexDirection: 'row', flexWrap: 'wrap' } },
+               { style: { display: 'flex', flexFlow: 'column' } },
                this.renderModalFields()
             ),
             _react2.default.createElement(
@@ -208,9 +208,18 @@ var List = function (_Component) {
          var _this4 = this;
 
          return this.state.struct['meta-type'].map(function (x, ix) {
-            return _react2.default.createElement(_items2.default, { type: x.type, placeholder: x.label, onChange: function onChange(evt) {
-                  _this4.handleModalChange(ix, evt);
-               }, value: _this4.state.modalContent[ix] });
+            return _react2.default.createElement(
+               _reactBootstrap.FormGroup,
+               null,
+               _react2.default.createElement(
+                  _reactBootstrap.ControlLabel,
+                  null,
+                  x.label
+               ),
+               _react2.default.createElement(_items2.default, { type: x.type, placeholder: 'Enter ' + x.label, onChange: function onChange(evt) {
+                     _this4.handleModalChange(ix, evt);
+                  }, value: _this4.state.modalContent[ix] })
+            );
          });
       }
    }, {

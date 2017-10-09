@@ -12,8 +12,6 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _data = require('../utils/data');
-
 var _reactBootstrap = require('react-bootstrap');
 
 var _foreignSelector = require('./foreignSelector');
@@ -61,7 +59,7 @@ var ForeignList = function (_Component) {
             listData: []
          });
          this.state.data.map(function (dat) {
-            (0, _data.getDataById)(dat.value).then(function (result) {
+            _this2.state.connector.getDataById(dat.value).then(function (result) {
                var employee = _this2.state.struct["meta-type"]["list_display"].map(function (e) {
                   return result[e];
                });
@@ -164,7 +162,7 @@ var ForeignList = function (_Component) {
             _react2.default.createElement(
                _reactBootstrap.Modal.Body,
                { style: { display: 'flex', flexDirection: 'row', flex: 1 } },
-               _react2.default.createElement(_foreignSelector2.default, { struct: this.state.struct, style: { flex: 1 }, onChange: function onChange(val) {
+               _react2.default.createElement(_foreignSelector2.default, { connector: this.state.connector, struct: this.state.struct, style: { flex: 1 }, onChange: function onChange(val) {
                      return _this4.setState({ modalValue: val });
                   } })
             ),

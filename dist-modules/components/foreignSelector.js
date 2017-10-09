@@ -12,8 +12,6 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _data = require('../utils/data');
-
 var _reactSelect = require('react-select');
 
 var _reactSelect2 = _interopRequireDefault(_reactSelect);
@@ -56,10 +54,10 @@ var ForeignSelector = function (_Component) {
          var _this2 = this;
 
          var id = this.state.struct["meta-type"].id;
-         (0, _data.getDataByModel)(id).then(function (options) {
+         this.state.connector.getDataByModel(id).then(function (options) {
             var opt = options.map(function (x) {
                return {
-                  value: x._id.id,
+                  value: x._id,
                   label: _this2.state.struct["meta-type"]["display_keys"].map(function (y) {
                      return x[y];
                   }).join(" ")

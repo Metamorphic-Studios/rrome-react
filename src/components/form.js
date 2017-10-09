@@ -54,9 +54,13 @@ class Form extends Component {
          beenSaved: true
       });
       if(!this.state.content._id){
-         this.state.connector.createDataByModel(this.state.struct.id, form);
+         this.state.connector.createDataByModel(this.state.struct.id, form).then(() => {
+            this.props.onBack(); 
+         });
       }else{
-         this.state.connector.saveDataById(this.state.content._id, form);
+         this.state.connector.saveDataById(this.state.content._id, form).then(() => {
+ 
+         });
       }
    /*   if(this.state.content._id){
          return saveDataById(this.state.content._id.id, form);
@@ -130,19 +134,19 @@ class Form extends Component {
   _render(){
       return this.state.struct.model.map((x) => {
          if(utils.isArray(x)){
-           return(<MultiSection sections = {this.mapStructs(x, this.state.content)} onChange={this.handleChange.bind(this)}/>);
+           return(<MultiSection sections = {this.mapStructs(x, this.state.content)} onChange={this.handleChange.bind(this)} connector={this.state.connector}/>);
          }
          else{
-            return(<Section inMulti = {false} struct = {this.mapStruct(x, this.state.content)} onChange={this.handleChange.bind(this)}/>);
+            return(<Section inMulti = {false} struct = {this.mapStruct(x, this.state.content)} onChange={this.handleChange.bind(this)} connector={this.state.connector}/>);
          }
       }); 
   }
 
    onDangerClick(){
       if(this.state.content._id){
-         if(this.props.onDelete){
-            this.props.onDelete(this.state.content._id.id);
-         }
+         this.state.connector.deleteDataById(this.state.content._id).then(() => {
+            this.props.onBack(); 
+         });
       }
       else{
          if(this.state.beenSaved){
@@ -156,9 +160,7 @@ class Form extends Component {
    }
 
    onPrimaryClick(){
-      if(this.props.onSave){
-         this.props.onSave(this.state.content);
-      }
+      this.saveForm(this.state.content);
    }
  
    render(){

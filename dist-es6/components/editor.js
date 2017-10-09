@@ -69,13 +69,6 @@ var Editor = function (_Component) {
                connector: this.state.connector,
                struct: this.state.struct,
                content: this.state.selectedItem,
-               onSave: function onSave(data) {
-                  _this2.state.connector.createDataByModel(_this2.state.struct.id, data);
-                  console.log("SAVE", data);
-               },
-               onDelete: function onDelete(id) {
-                  console.log("DELETE", id);
-               },
                onBack: this.onBack.bind(this) });
          } else {
             return React.createElement(Table, {

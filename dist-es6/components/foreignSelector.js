@@ -10,8 +10,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 import React, { Component } from 'react';
 
-import { getDataByModel } from '../utils/data';
-
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
@@ -43,10 +41,10 @@ var ForeignSelector = function (_Component) {
          var _this2 = this;
 
          var id = this.state.struct["meta-type"].id;
-         getDataByModel(id).then(function (options) {
+         this.state.connector.getDataByModel(id).then(function (options) {
             var opt = options.map(function (x) {
                return {
-                  value: x._id.id,
+                  value: x._id,
                   label: _this2.state.struct["meta-type"]["display_keys"].map(function (y) {
                      return x[y];
                   }).join(" ")

@@ -92,11 +92,11 @@ var Section = function (_Component) {
                         _this2.mapChange(x.id, evt);
                      } });
                case "FSELECT":
-                  return _react2.default.createElement(_foreignSelector2.default, { struct: x, onChange: function onChange(evt) {
+                  return _react2.default.createElement(_foreignSelector2.default, { connector: _this2.state.connector, struct: x, onChange: function onChange(evt) {
                         return _this2.mapChange(x.id, evt.value);
                      }, value: x.value });
                case "FLIST":
-                  return _react2.default.createElement(_foreignList2.default, { struct: x, onChange: function onChange(evt) {
+                  return _react2.default.createElement(_foreignList2.default, { connector: _this2.state.connector, struct: x, onChange: function onChange(evt) {
                         return _this2.mapChange(x.id, evt);
                      }, value: x.value });
                default:
