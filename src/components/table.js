@@ -102,7 +102,7 @@ class Table extends Component {
          onClick: (e, handleOriginal) => {
             if(this.props.onItemSelect){
                for(var i = 0; i < this.state.data.length; i++){
-                  if(rowInfo.original["_id"].id == this.state.data[i]["_id"].id){
+                  if(rowInfo.original["_id"] == this.state.data[i]["_id"]){
                      this.props.onItemSelect(this.state.origData[i]);
                      break;
                   }

@@ -53,7 +53,11 @@ class Form extends Component {
       this.setState({
          beenSaved: true
       });
-      this.state.connector.createDataByModel(this.state.struct.id, form);
+      if(!this.state.content._id){
+         this.state.connector.createDataByModel(this.state.struct.id, form);
+      }else{
+         this.state.connector.saveDataById(this.state.content._id, form);
+      }
    /*   if(this.state.content._id){
          return saveDataById(this.state.content._id.id, form);
       }else{
