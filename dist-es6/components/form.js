@@ -60,6 +60,11 @@ var Form = function (_Component) {
    }, {
       key: 'saveForm',
       value: function saveForm(form) {
+
+         this.setState({
+            beenSaved: true
+         });
+         this.state.connector.createDataByModel(this.state.struct.id, form);
          /*   if(this.state.content._id){
                return saveDataById(this.state.content._id.id, form);
             }else{
