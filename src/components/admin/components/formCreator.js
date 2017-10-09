@@ -7,12 +7,12 @@ import {
 } from 'react-bootstrap'
 
 export default class FormCreator extends Component{
-
+   /*this.props.toggleModal() is the callback*/
    constructor(props){
       super(props);
       this.state({
          ...props,
-         addedSections: undefined
+         addedSections: [], 
          showModal: false
       });
    }
@@ -28,8 +28,7 @@ export default class FormCreator extends Component{
    
 
    addSection(sect){
-      var updatedSections = [];
-      updatedSections.push(this.state.addedSections);
+      var updatedSections = this.state.addedSections;
       updatedSections.push(sect);
       this.setState({
          addedSections : updatedSections
@@ -42,17 +41,19 @@ export default class FormCreator extends Component{
       });
    }
 
+
    _renderSections(){
-   
+      return this.state.addedSections.map(x => {
+      
+      }); 
    }
 
    _renderForm(){
       return(
-         if(addedSections){
-            return(
-               
-               {this._renderSections}      
-            );
+         {
+            if(addedSections){
+               this._renderSections();
+            }
          }      
       );   
    }
@@ -65,5 +66,6 @@ export default class FormCreator extends Component{
          </div>      
       );
    }
-
 }
+
+
